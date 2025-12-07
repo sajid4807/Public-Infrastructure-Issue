@@ -1,0 +1,11 @@
+@import "tailwindcss";
+ @plugin "daisyui/theme" {
+  themes: light --default;
+  --color-primary: #CAEB66;
+  --color-secondary: #03373D;
+  /* --color-base-100-1:#606060; */
+}
+.body-width{
+  max-width: 1280px;
+  margin: 0 auto 0 auto;
+}
