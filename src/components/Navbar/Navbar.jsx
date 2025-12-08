@@ -1,12 +1,52 @@
+import { Link } from "react-router";
 import MyLink from "../MyLinks/MyLinks";
-import logo from '../../assets/logo.png';
+import Logo from "../Logo/Logo";
+import useAuth from "../../hooks/useAuth";
+import Swal from "sweetalert2";
+import { MdOutlineLogout } from "react-icons/md";
 
 const Navbar = () => {
+  const {user,logOut}=useAuth() 
     const links =<>
     <li><MyLink to='/'>Home</MyLink></li>
     <li><MyLink to='/all-issue'>All Issues</MyLink></li>
 
     </>
+
+const handleLogout =()=>{
+  Swal.fire({
+  title: "Are you sure?",
+  icon: "warning",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Yes, Log Out it!"
+}).then((result) => {
+  if (result.isConfirmed) {
+    logOut()
+    .then(()=>{
+      Swal.fire({
+      title: "Logout!",
+      text: "Successfully LogOut",
+      icon: "success"
+    });
+    })
+    .catch((err) => {
+          console.log(err.message);
+          const error =err.message
+          Swal.fire({
+    position: "top-end",
+    icon: "error",
+    title: error,
+    showConfirmButton: false,
+    timer: 1500
+  });
+        });
+    
+  }
+})
+}
+
     return (
         <div className="navbar">
   <div className="navbar-start">
@@ -20,8 +60,9 @@ const Navbar = () => {
         {links}
       </ul>
     </div>
-    <img src={logo} className="w-16 h-16" alt="" />
-    <h2 className="hidden md:block text-2xl font-bold">Public Infrastructure Issue</h2>
+    <Link to='/'><Logo/></Link>
+    {/* <img src={logo} className="w-14 h-12" alt="" />
+    <h2 className="hidden md:block text-2xl font-bold">Public Infrastructure Issue</h2> */}
   </div>
   <div className="navbar-center hidden lg:flex">
     <ul className="menu menu-horizontal px-1">
@@ -29,7 +70,43 @@ const Navbar = () => {
     </ul>
   </div>
   <div className="navbar-end">
-    <a className="btn">Button</a>
+    {user ? <>
+        <div className="flex items-center">
+                <div className="dropdown">
+                  <div tabIndex={0} role="button" className="">
+                    <img
+                      referrerPolicy="no-referrer"
+                      src={`${user ? user?.photoURL : ""}`}
+                      alt=""
+                      className="w-12 h-12 rounded-full cursor-pointer"
+                    />
+                  </div>
+                  <ul
+                    tabIndex="-1"
+                    className="menu menu-sm dropdown-content w-44 md:w-44 rounded-box z-99 mt-3  p-2 shadow right-0"
+                  >
+                    <li>
+                     <p className="smooth-underline uppercase">{user.displayName}</p>
+                    </li>
+                    <li>
+                      <MyLink to="/my-watch-list">DashBoard</MyLink>
+                    </li>
+                    <li>
+                      <button
+                        className="font-bold text-xl smooth-underline !flex items-center gap-2"
+                        onClick={handleLogout}
+                      >
+                        <MdOutlineLogout /> Log out
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+       
+
+
+      
+    </> :<Link to='/login' className="btn btn-glow">LogIn</Link>}
   </div>
 </div>
     );

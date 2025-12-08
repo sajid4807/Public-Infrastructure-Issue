@@ -3,8 +3,9 @@
    themes: light --default, dark --prefersdark;
  }
 @plugin "daisyui/theme" {
-  --color-primary: blue;
-  --color-secondary: teal;
+  --color-primary: #1E293B;
+  --color-secondary: #1E3A8A;
+  --color-primary-content: #4B5563;
 }
 .body-width {
   max-width: 1280px;
@@ -17,7 +18,7 @@
   display: inline-block;
   padding-bottom: 4px;
   font-weight: bold;
-  color: var(--color-primary);
+  /* color:#fff; */
   font-size: 1.125rem;
 }
 .smooth-underline::after {
@@ -47,4 +48,30 @@
 
 .smooth-border-underline.active {
   border-color: currentColor;
+}
+
+.btn-glow {
+  color: #fff;
+  background: linear-gradient(135deg, #6a00f4, #00c6ff);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  position: relative;
+  transition: 0.3s ease;
+  outline: none;
+}
+.btn-glow::before {
+  content: "";
+  position: absolute;
+  top: -80%;
+  left: -80%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, #ffffff40, transparent 50%);
+  transform: scale(0);
+  transition: 0.4s;
+}
+.btn-glow:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(100, 200, 255, 0.5);
 }
