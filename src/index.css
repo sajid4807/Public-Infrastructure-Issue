@@ -3,8 +3,8 @@
    themes: light --default, dark --prefersdark;
  }
 @plugin "daisyui/theme" {
-  --color-primary: #1E293B;
-  --color-secondary: #1E3A8A;
+  /* --color-primary: #1E293B;
+  --color-secondary: #1E3A8A; */
   --color-primary-content: #4B5563;
 }
 .body-width {
@@ -74,4 +74,24 @@
 .btn-glow:hover {
   transform: translateY(-2px);
   box-shadow: 0 0 20px rgba(100, 200, 255, 0.5);
+}
+
+
+
+@keyframes floating {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+.animate-floating {
+  animation: floating 3s ease-in-out infinite;
+}
+
+@keyframes pulse-right {
+  0%,100% { transform: translateX(0); }
+  50% { transform: translateX(20px); }
+}
+
+.animate-pulse-right {
+  animation: pulse-right 5s ease-in-out infinite;
 }

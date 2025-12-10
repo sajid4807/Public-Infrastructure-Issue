@@ -10,7 +10,7 @@ const Navbar = () => {
     const links =<>
     <li><MyLink to='/'>Home</MyLink></li>
     <li><MyLink to='/all-issue'>All Issues</MyLink></li>
-
+    <li><MyLink to='/report'>Report</MyLink></li>
     </>
 
 const handleLogout =()=>{
@@ -89,7 +89,7 @@ const handleLogout =()=>{
                      <p className="smooth-underline uppercase">{user.displayName}</p>
                     </li>
                     <li>
-                      <MyLink to="/my-watch-list">DashBoard</MyLink>
+                      <MyLink to="/dashboard/my-reports">DashBoard</MyLink>
                     </li>
                     <li>
                       <button

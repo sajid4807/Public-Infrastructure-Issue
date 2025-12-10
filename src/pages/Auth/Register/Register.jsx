@@ -2,16 +2,38 @@ import { useForm } from "react-hook-form";
 import useAuth from "../../../hooks/useAuth";
 import { Link } from "react-router";
 import SocialLogin from "../../../components/SocialLogin/SocialLogin";
+import axios from "axios";
 
 const Register = () => {
     const {register,handleSubmit,formState:{errors}} =useForm()
-    const {registerUser}=useAuth()
+    const {registerUser,profileUpdate}=useAuth()
 
     const handleRegister = (data)=> {
-        console.log(data)
+        // console.log(data.photo[0])
+        const profileImg = data.photo[0]
         registerUser(data.email,data.password)
-        .then(result =>{
-            console.log(result.user)
+        .then(() =>{
+            // console.log(result.user)
+            const formData =new FormData();
+        formData.append('image',profileImg)
+        //  "https://api.imgbb.com/1/upload?key=YOUR_CLIENT_API_KEY"
+         axios.post(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_host}`,formData).then(res =>{
+        //   const photoURL = res.data.data.url
+        const userProfile ={
+            displayName: data.name,
+            photoURL: res.data.data.url
+        }
+        profileUpdate(userProfile)
+        .then(()=>{
+            console.log('user profile updata done')
+        })
+        .then(error =>{
+            console.log(error.message)
+        })
+
+            // console.log('after saving data',res.data)
+         })
+        
         })
         .catch(error =>{
             console.log(error.message)
@@ -34,7 +56,7 @@ const Register = () => {
           {errors.name?.type === "required" && (
             <p className="text-red-500"> Name is required</p>
           )}
-           {/* image filed
+           {/* image filed */}
 
            <label className="label text-black font-medium">Photo</label>
           <input
@@ -45,7 +67,7 @@ const Register = () => {
           />
           {errors.photo?.type === "required" && (
             <p className="text-red-500"> Photo is required</p>
-          )} */}
+          )}
             {/* email */}
           <label className="label text-black font-medium">Email</label>
           <input type="email" {...register('email',{required:true})} className="input w-full" placeholder="Email" />
