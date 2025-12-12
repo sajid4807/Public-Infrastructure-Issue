@@ -4,9 +4,11 @@ import Footer from "../../components/Footer/Footer";
 
 const MainLayout = () => {
     return (
-        <div className="body-width">
+        <div >
             <Navbar/>
-            <Outlet></Outlet>
+            <div className="body-width px-4">
+                <Outlet></Outlet>
+            </div>
             <Footer/>
         </div>
     );

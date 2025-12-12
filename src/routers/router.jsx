@@ -9,6 +9,7 @@ import PrivateRoute from "../Private/PrivateRoute/PrivateRoute";
 import Report from "../pages/Report/Report";
 import DashBoardLayout from "../layout/DashBoardLayout/DashBoardLayout";
 import MyReports from "../pages/DahsBoard/MyReports/MyReports";
+import ReportDetails from "../components/ReportDetails/ReportDetails";
 
 export const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ export const router = createBrowserRouter([
       {
         path:'register',
         element:<Register/>
+      },
+      {
+        path:'view-details/:id',
+        element:<PrivateRoute><ReportDetails></ReportDetails></PrivateRoute>
       },
       {
         path:'report',

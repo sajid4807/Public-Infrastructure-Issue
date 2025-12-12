@@ -1,4 +1,4 @@
-import { Outlet } from "react-router";
+import { Link, Outlet } from "react-router";
 import LogoDash from "../../components/Logo/LogoDash";
 
 const DashBoardLayout = () => {
@@ -52,7 +52,8 @@ const DashBoardLayout = () => {
                 data-tip="Homepage"
               > */}
                 {/* Home icon */}
-                <LogoDash/>
+                
+                <Link to='/'><LogoDash/></Link>
                 {/* <span className="is-drawer-close:hidden">Homepage</span> */}
               {/* </button> */}
             </li>
