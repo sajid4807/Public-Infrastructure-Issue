@@ -1,66 +1,17 @@
-// import { useQuery } from "@tanstack/react-query";
-// import useAxiosSecure from "../../hooks/useAxiosSecure";
-// import { useParams } from "react-router";
-
-// const ReportDetails = () => {
-//   const { id } = useParams();
-//   const axiosInstance = useAxiosSecure();
-//   const { data: issue = {} } = useQuery({
-//     queryKey: ["issues", id],
-//     queryFn: async () => {
-//       const res = await axiosInstance.get(`/reports/${id}`);
-//       return res.data;
-//     },
-//   });
-
-//   const date = new Date(issue.createdAt);
-// const formattedDate = date.toLocaleDateString("en-GB", {
-//   day: "2-digit",
-//   month: "short",
-//   year: "numeric"
-// });
-
-//   // console.log(issues)
-
-//   return (
-//     <div className="my-10 md:my-20">
-//       <div>
-//         <div>
-//           <img src={issue.imageURL} className="mx-auto w-1/2 mb-5" alt="" />
-//         </div>
-//         <div>
-//           <h1 className="text-4xl font-bold capitalize">{issue.title}
-//                 <p className="badge bg-[#e0fce4] border-[#97e3a4] text-[#158431] py-4 px-3 ml-3">{issue.status}</p>
-//           </h1>
-//           <div className="my-2">
-//             <p className="text-xl mt-1 font-bold">Category: {issue.category}</p>
-//             <p className="text-xl mt-1 font-bold">Location: {issue.location}</p>
-//           </div>
-//             <p className="text-xl">{issue.description}</p>
-//             <div className="mt-5">
-//                 {
-//                   issue.status === 'pending' && (<button className="btn btn-glow me-5">Edit</button>) 
-//                 }
-//                 <button className="btn btn-glow ">Delete</button>
-//             </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default ReportDetails;
-
-
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
-import { useParams } from "react-router";
+import { Link, useLocation, useNavigate, useParams } from "react-router";
 import useAxios from "../../hooks/useAxios";
+import useAuth from "../../hooks/useAuth";
+import Swal from "sweetalert2";
 
 const ReportDetails = () => {
   const { id } = useParams();
   const axiosInstance = useAxios();
   const axiosSecure = useAxiosSecure()
+  const {user} = useAuth()
+  const location = useLocation()
+  const navigate = useNavigate()
 
   const { data: issue = {} } = useQuery({
     queryKey: ["issue", id],
@@ -68,6 +19,7 @@ const ReportDetails = () => {
       const res = await axiosInstance.get(`/reports/${id}`);
       return res.data;
     },
+    refetchOnMount:true
   });
   const formattedDate = new Date(issue.createdAt)
   .toLocaleDateString("en-GB", {
@@ -76,17 +28,40 @@ const ReportDetails = () => {
     year: "numeric"
   });
 
-  const handleEditReport =()=>{
-    axiosSecure.patch
-    // console.log('clicked')
+
+  const handleReportDelete =()=>{
+    Swal.fire({
+  title: "Are you sure?",
+  text: "This public issue report will be permanently deleted and cannot be recovered.",
+  icon: "warning",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Yes, delete it!"
+}).then((result) => {
+  if (result.isConfirmed) {
+  axiosSecure
+    .delete(`/reports/${issue._id}`)
+    .then(() => {
+      Swal.fire({
+        title: "Deleted!",
+        text: "Your report has been deleted.",
+        icon: "success",
+        timer: 1000,
+        showConfirmButton: false,
+      }).then(() => {
+        navigate("/all-issue");
+      });
+    });
+}
+});
   }
 
-  // if (isLoading) return <p className="text-center py-20 text-xl">Loading...</p>;
 
   return (
     <div className="max-w-5xl mx-auto my-10">
       {/* HEADER */}
-      <h1 className="text-4xl font-bold mb-5 tracking-tight">
+      <h1 className="text-4xl font-bold mb-5 capitalize tracking-tight">
         {issue.title}
       </h1>
 
@@ -134,17 +109,16 @@ const ReportDetails = () => {
 
       <div className="flex items-center gap-4 mb-6">
   {
-    issue.status === 'pending' && (<button onClick={handleEditReport} className="btn btn-glow">
+    issue.status === 'pending' && issue.email === user?.email && (<Link to={`/edit/${issue._id}`} state={location.pathname} className="btn btn-glow">
     Edit
-  </button>)
+  </Link>)
   }
 
-  <button className="btn btn-glow">
+  <button onClick={handleReportDelete} className="btn btn-glow">
     Delete
   </button>
-
- {/* BOOST (priority normal + same user) */}
-        {issue.priority === "Normal" && (
+         {/* BOOST (priority normal + same user) */}
+        {issue.priority === "Normal" && issue.email === user?.email && (
           <button
             // onClick={handleBoost}
             className="btn bg-gradient-to-r from-orange-500 to-red-500 text-white border-none shadow-lg"

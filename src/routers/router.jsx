@@ -10,6 +10,7 @@ import Report from "../pages/Report/Report";
 import DashBoardLayout from "../layout/DashBoardLayout/DashBoardLayout";
 import MyReports from "../pages/DahsBoard/MyReports/MyReports";
 import ReportDetails from "../components/ReportDetails/ReportDetails";
+import Edit from "../components/Edit/Edit";
 
 export const router = createBrowserRouter([
   {
@@ -41,6 +42,10 @@ export const router = createBrowserRouter([
       {
         path:'report',
         element:<PrivateRoute><Report/></PrivateRoute>
+      },
+      {
+        path:'edit/:id',
+        element:<PrivateRoute><Edit></Edit></PrivateRoute>
       }
     ],
   },

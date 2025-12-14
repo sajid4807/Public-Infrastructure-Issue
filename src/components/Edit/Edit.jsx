@@ -1,75 +1,67 @@
-import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
+import useAxios from "../../hooks/useAxios";
+import { Navigate, useLocation, useNavigate, useParams } from "react-router";
+import { useEffect } from "react";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
-import useAuth from "../../hooks/useAuth";
 
-const Report = () => {
-  const axiosSecure = useAxiosSecure();
-  const {user} =useAuth()
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm();
+const Edit = () => {
 
-  const handleIssueSubmit = (data) => {
-    const reportImg = data.image[0];
-    const formData = new FormData();
-    formData.append("image", reportImg);
-    axios
-      .post(
-        `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_host}`,
-        formData
-      )
-      .then((res) => {
-        const imageURL = res.data.data.url;
-        delete data.image;
-        delete data.imageURL;
-        const reportInfo = {
-          ...data,
-          email:user.email,
-          imageURL: imageURL,
-          status: "pending",
-          priority:"normal",
-          createdAt: new Date(),
-        };
+    const {register,handleSubmit,reset, formState:{errors}}=useForm()
+    const axiosInstance =useAxios()
+    const axiosSecure =useAxiosSecure()
+    const {id} =useParams()
+    const location =useLocation()
+    const navigate = useNavigate()
 
-        axiosSecure
-          .post("/reports", reportInfo)
-          .then(() => {
+    const {data: issue}=useQuery({
+        queryKey:['report',id],
+        queryFn:async()=>{
+            const res =await axiosInstance.get(`/reports/${id}`)
+            return res.data
+        }
+    })
+    useEffect(() => {
+  if (issue) {
+    reset({
+      title: issue.title,
+      category: issue.category,
+      priority: issue.priority,
+      location: issue.location,
+      description: issue.description,
+    });
+  }
+}, [issue, reset]);
+
+
+    const handleReportEdit =data=>{
+        // const updateReport = {
+        //     data
+        // }
+        axiosSecure.patch(`/reports/${issue._id}`,data)
+        .then(() => {
             Swal.fire({
-              position: "top-end",
-              icon: "success",
-              title: "Your Report Has Been saved",
-              showConfirmButton: false,
-              timer: 1500,
-            });
-            reset();
-          })
-          .catch((err) => {
-            const message = err.message;
-            Swal.fire({
-              position: "top-end",
-              icon: "error",
-              title: message,
-              showConfirmButton: false,
-              timer: 1500,
-            });
-          });
+          position: "top-end",
+          icon: "success",
+          title: "Edit successful 🎉",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        navigate(
+          location.state ? location.state : location.pathname
+        );
+        })
+    }
 
-        console.log("after saving data", data, imageURL);
-      });
-  };
 
-  return (
-    <div className="max-w-2xl mx-auto my-10 md:my-16 p-6 bg-base-100 rounded-xl shadow-2xl">
+    return (
+         <div className="max-w-2xl mx-auto my-10 md:my-16 p-6 bg-base-100 rounded-xl shadow-2xl">
       <h1 className="text-3xl font-bold mb-4 text-center">
         Report Public Issue
       </h1>
 
-      <form onSubmit={handleSubmit(handleIssueSubmit)} className="space-y-4">
+      <form onSubmit={handleSubmit(handleReportEdit)} className="space-y-4">
         {/* Title */}
         <label className="">Title</label>
         <input
@@ -89,7 +81,6 @@ const Report = () => {
           name="category"
           className="select select-bordered w-full"
           {...register("category", { required: true })}
-          defaultValue=""
         >
           <option value="" disabled>
             Select Category
@@ -106,12 +97,12 @@ const Report = () => {
         )}
 
         {/* Priority */}
-        {/* <label className="">Priority</label>
+        <label className="">Priority</label>
         <select
           name="priority"
           className="select select-bordered w-full"
-          {...register("priority", { required: true })}
-          defaultValue=""
+          disabled
+    value={issue?.priority}
         >
           <option value="" disabled>
             Select Priority
@@ -121,13 +112,12 @@ const Report = () => {
         </select>
         {errors.priority?.type === "required" && (
           <p className="text-red-500"> Priority is required</p>
-        )} */}
+        )}
 
         {/* Image Upload */}
         <label className="">Image</label>
         <input
           type="file"
-          {...register("image", { required: true })}
           className="file-input w-full"
           placeholder="Photo"
         />
@@ -164,7 +154,7 @@ const Report = () => {
         </button>
       </form>
     </div>
-  );
+    );
 };
 
-export default Report;
+export default Edit;
