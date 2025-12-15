@@ -1,9 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
-import { Link, useLocation, useNavigate, useParams } from "react-router";
+import { Link, useLocation, useNavigate, useParams, useSearchParams } from "react-router";
 import useAxios from "../../hooks/useAxios";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
+import { useEffect } from "react";
 
 const ReportDetails = () => {
   const { id } = useParams();
@@ -12,8 +13,13 @@ const ReportDetails = () => {
   const {user} = useAuth()
   const location = useLocation()
   const navigate = useNavigate()
+  // const[searchParms] =useSearchParams()
+  const [searchParams] = useSearchParams();
+   const sessionId = searchParams.get("session_id");
 
-  const { data: issue = {} } = useQuery({
+   
+
+  const { data: issue = {},refetch } = useQuery({
     queryKey: ["issue", id],
     queryFn: async () => {
       const res = await axiosInstance.get(`/reports/${id}`);
@@ -27,6 +33,12 @@ const ReportDetails = () => {
     month: "short",
     year: "numeric"
   });
+
+  useEffect(() => {
+    if (sessionId) {
+      axiosSecure.post("/confirm-boost", { sessionId })
+    }
+  }, [sessionId,axiosSecure,refetch]);
 
 
   const handleReportDelete =()=>{
@@ -57,6 +69,16 @@ const ReportDetails = () => {
 });
   }
 
+  const handleBoost =async()=>{
+    const paymentInfo={
+      reportId:issue._id,
+      email:issue.email
+    }
+    const res =await axiosSecure.post('create-checkout-session',paymentInfo)
+    window.location.href=res.data.url;
+      refetch()
+  }
+
 
   return (
     <div className="max-w-5xl mx-auto my-10">
@@ -83,7 +105,7 @@ const ReportDetails = () => {
 
         <div className="p-5 rounded-xl bg-base-200 shadow-sm">
           <p className="text-xl mb-1 font-bold">Status</p>
-          <span className="px-4 py-1 capitalize rounded-full text-sm font-semibold text-white bg-gradient-to-r from-indigo-500 to-purple-500 inline-block">
+          <span className="px-4 py-1 capitalize rounded-lg text-sm font-semibold text-white bg-gradient-to-r from-indigo-500 to-purple-500 inline-block">
             {issue.status}
           </span>
         </div>
@@ -91,8 +113,8 @@ const ReportDetails = () => {
         <div className="p-5 rounded-xl bg-base-200 shadow-sm">
           <p className="text-xl mb-1 font-bold">Priority</p>
           <span
-            className={`px-4 py-1 rounded-full text-sm font-semibold inline-block ${
-              issue.priority === "High"
+            className={`px-4 py-1 rounded-lg text-sm capitalize font-semibold inline-block ${
+              issue.priority === "high"
                 ? "bg-red-500 text-white"
                 : "bg-green-500 text-white"
             }`}
@@ -113,14 +135,17 @@ const ReportDetails = () => {
     Edit
   </Link>)
   }
-
-  <button onClick={handleReportDelete} className="btn btn-glow">
+  {
+    issue.email === user?.email && (<button onClick={handleReportDelete} className="btn btn-glow">
     Delete
-  </button>
+  </button>)
+  }
+
+  
          {/* BOOST (priority normal + same user) */}
-        {issue.priority === "Normal" && issue.email === user?.email && (
+        {issue.priority === "normal" && issue.email === user?.email && (
           <button
-            // onClick={handleBoost}
+            onClick={handleBoost}
             className="btn bg-gradient-to-r from-orange-500 to-red-500 text-white border-none shadow-lg"
           >
             Boost Issue — 100

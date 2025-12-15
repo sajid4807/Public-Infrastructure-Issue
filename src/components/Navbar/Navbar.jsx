@@ -56,7 +56,7 @@ const handleLogout =()=>{
       </div>
       <ul
         tabIndex="-1"
-        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+        className="menu menu-sm dropdown-content bg-base-100 rounded-box  mt-3 w-52 p-2 shadow ">
         {links}
       </ul>
     </div>
@@ -69,10 +69,10 @@ const handleLogout =()=>{
       {links}
     </ul>
   </div>
-  <div className="navbar-end">
+  <div className="navbar-end ">
     {user ? <>
-        <div className="flex items-center ">
-                <div className="dropdown">
+        <div className="flex items-center">
+                <div className="dropdown ">
                   <div tabIndex={0} role="button" className="">
                     <img
                       referrerPolicy="no-referrer"
@@ -82,8 +82,7 @@ const handleLogout =()=>{
                     />
                   </div>
                   <ul
-                    tabIndex="-1"
-                    className="menu menu-sm dropdown-content w-44 md:w-44 z-99 rounded-box mt-3 p-2 shadow right-0"
+                    className="menu menu-sm dropdown-content bg-base-100 w-44 md:w-44 rounded-box mt-3 p-2 shadow right-0"
                   >
                     <li>
                      <p className="smooth-underline uppercase">{user.displayName}</p>

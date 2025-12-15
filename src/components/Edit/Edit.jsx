@@ -97,7 +97,7 @@ const Edit = () => {
         )}
 
         {/* Priority */}
-        <label className="">Priority</label>
+        {/* <label className="">Priority</label>
         <select
           name="priority"
           className="select select-bordered w-full"
@@ -112,7 +112,7 @@ const Edit = () => {
         </select>
         {errors.priority?.type === "required" && (
           <p className="text-red-500"> Priority is required</p>
-        )}
+        )} */}
 
         {/* Image Upload */}
         <label className="">Image</label>

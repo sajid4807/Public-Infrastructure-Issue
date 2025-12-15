@@ -6,21 +6,24 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useState } from "react";
 import Loading from "../../components/Loading/Loading";
 import { FaSearch } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 const AllIssues = () => {
   const axiosInstance = useAxios();
   const {user}=useAuth()
   const axiosSecure= useAxiosSecure()
+  const [searchText,setSearchText] =useState('')
+  const [inputValue, setInputValue] = useState("");
    const [page, setPage] = useState(1); // current page
   const limit = 9; // items per page
 
   const navigate = useNavigate()
 
-  const { data,isLoading } = useQuery({
-    queryKey: ["reports",page],
+  const { data,isLoading,refetch } = useQuery({
+    queryKey: ["reports",page,searchText],
     queryFn: async () => {
       // const res = await axiosInstance.get("/reports");
-      const res = await axiosInstance.get(`/reports?page=${page}&limit=${limit}`);
+      const res = await axiosInstance.get(`/reports?page=${page}&limit=${limit}&searchText=${searchText}`);
       return res.data;
     },
     keepPreviousData: true,
@@ -37,28 +40,55 @@ const totalPages = Math.ceil(data?.totalReports / limit || 1);
       return navigate('/login')
     }
     axiosSecure.post(`/reports/${reportId}/upVote`)
-    .then(res =>{
-      console.log('after saving data',res.data)
+    .then(() =>{
+      refetch()
+      Swal.fire({
+  position: "top-end",
+  icon: "success",
+  title: "Your upvote successfully",
+  showConfirmButton: false,
+  timer: 1500
+});
     })
      .catch ((err)=> {
-      console.log(err.message)
-    // console.error(err.response?.data?.message || "Upvote failed");
+      const message = err.message
+      Swal.fire({
+  position: "top-end",
+  icon: "error",
+  title: message,
+  showConfirmButton: false,
+  timer: 1500
+});
   })
   }
 
+  const handleSearch = ()=>{
+    setSearchText(inputValue);
+  setPage(1); 
+  }
 
   return (
     <div className="my-10 md:my-10">
-      <h2 className="text-5xl font-bold text-center mb-10">All Issues</h2>
-      <div className="relative flex items-center w-full max-w-md mb-4">
-        <label className="text-2xl mr-3.5 font-bold">Search:</label>
-      <input
-        type="text"
-        // placeholder={placeholder}
-        className="w-full pl-4 pr-4 text-xl py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-gray-500"
-      />
-      <FaSearch className="absolute right-3 top-1/2 transform -translate-y-1/2 text-black" />
-    </div>
+      <h2 className="text-5xl font-bold  text-center mb-10">All Issues</h2>
+
+<div className="join mb-4 w-full">
+  {/* Input field */}
+  <input
+    type="search"
+    value={inputValue}
+    onChange={(e) => setInputValue(e.target.value)}
+    placeholder="Search Issue"
+    className="input input-bordered input-md join-item bg-gray-100 border-none focus:outline-none placeholder-gray-500"
+  />
+  {/* Search button */}
+  <button
+    onClick={handleSearch}
+    className="btn join-item bg-gradient-to-br from-[#6a00f4] to-[#00c6ff] text-white font-semibold hover:opacity-90"
+  >
+    Search
+  </button>
+</div>
+
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         {reports.map((report) => (
           <div key={report._id} className="card bg-base-100 shadow-sm">
@@ -76,7 +106,7 @@ const totalPages = Math.ceil(data?.totalReports / limit || 1);
               <h2 className="card-title capitalize">
                 {report.title}
                 <div className="badge-dot capitalize">{report.status}</div>
-                <div className={`badge badge-outline ${report.priority === 'high'?"bg-red-500 text-red-100": "bg-green-600 text-green-200" }  text-white capitalize p-4`}>{report.priority}</div>
+                <div className={`badge badge-outline capitalize ${report.priority === 'high'?"bg-red-500": "bg-green-600" } text-white capitalize p-4`}>{report.priority}</div>
               </h2>
               <p className="pt-2 font-medium">
                 <span className="text-xl font-semibold">Category:</span> {report.category}
