@@ -1,6 +1,7 @@
 import { Link, NavLink, Outlet } from "react-router";
 import LogoDash from "../../components/Logo/LogoDash";
 import { MdReport } from "react-icons/md";
+import { FaUsersCog } from "react-icons/fa";
 const DashBoardLayout = () => {
   return (
     <div className="drawer lg:drawer-open">
@@ -52,6 +53,8 @@ const DashBoardLayout = () => {
                 <Link to='/'><LogoDash/></Link>
             </li>
 
+
+
             {/* our link list */}
               <li>
               <NavLink
@@ -64,6 +67,22 @@ const DashBoardLayout = () => {
                 <span className="is-drawer-close:hidden">All Issue</span>
               </NavLink>
             </li>
+
+            <li>
+              <NavLink
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="Manage Staff"
+                to="/dashboard/manage-staff"
+              >
+                <FaUsersCog  size={30}/>
+                  
+                <span className="is-drawer-close:hidden">Manage Staff</span>
+              </NavLink>
+            </li>
+
+
+
+
 
             {/* List item */}
             <li>

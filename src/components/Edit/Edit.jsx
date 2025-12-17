@@ -36,9 +36,6 @@ const Edit = () => {
 
 
     const handleReportEdit =data=>{
-        // const updateReport = {
-        //     data
-        // }
         axiosSecure.patch(`/reports/${issue._id}`,data)
         .then(() => {
             Swal.fire({
@@ -95,25 +92,6 @@ const Edit = () => {
         {errors.category?.type === "required" && (
           <p className="text-red-500"> Category is required</p>
         )}
-
-        {/* Priority */}
-        {/* <label className="">Priority</label>
-        <select
-          name="priority"
-          className="select select-bordered w-full"
-          disabled
-    value={issue?.priority}
-        >
-          <option value="" disabled>
-            Select Priority
-          </option>
-          <option value="High">High</option>
-          <option value="Normal">Normal</option>
-        </select>
-        {errors.priority?.type === "required" && (
-          <p className="text-red-500"> Priority is required</p>
-        )} */}
-
         {/* Image Upload */}
         <label className="">Image</label>
         <input

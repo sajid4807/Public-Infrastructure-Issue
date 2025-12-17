@@ -17,17 +17,22 @@ const AdminAllIssues = () => {
     },
   });
 
-  const assignMutation = useMutation({
-    mutationFn: () =>
-      axiosSecure.patch(`/reports/${selectedIssue}/assign-staff`, {
-        staffEmail,
-      }),
-    onSuccess: () => {
-      Swal.fire("Assigned!", "Staff assigned successfully", "success");
-      queryClient.invalidateQueries(["admin-issues"]);
-      setSelectedIssue(null);
-    },
-  });
+  const handleAssignStaff =(reportId)=>{
+
+  }
+
+
+//   const assignMutation = useMutation({
+//     mutationFn: () =>
+//       axiosSecure.patch(`/reports/${selectedIssue}/assign-staff`, {
+//         staffEmail,
+//       }),
+//     onSuccess: () => {
+//       Swal.fire("Assigned!", "Staff assigned successfully", "success");
+//       queryClient.invalidateQueries(["admin-issues"]);
+//       setSelectedIssue(null);
+//     },
+//   });
 
   const rejectIssue = async (id) => {
     const confirm = await Swal.fire({
@@ -42,7 +47,7 @@ const AdminAllIssues = () => {
   };
 
   return (
-  <div className="p-4">
+  <div className="">
     <h2 className="text-2xl my-5 font-bold">All Issues</h2>
 
     {/* ===== DESKTOP TABLE ===== */}
@@ -80,7 +85,8 @@ const AdminAllIssues = () => {
               <td className="space-x-2">
                 {!issue.assignedStaff && (
                   <button
-                    onClick={() => setSelectedIssue(issue._id)}
+                    // onClick={() => setSelectedIssue(issue._id)}
+                    onClick={()=> handleAssignStaff(issue._id)}
                     className="btn btn-xs btn-primary"
                   >
                     Assign

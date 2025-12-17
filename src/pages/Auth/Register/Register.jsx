@@ -18,14 +18,11 @@ const Register = () => {
 
 
   const handleRegister = (data) => {
-    // console.log(data.photo[0])
     const profileImg = data.photo[0];
     registerUser(data.email, data.password)
       .then(() => {
-        // console.log(result.user)
         const formData = new FormData();
         formData.append("image", profileImg);
-        //  "https://api.imgbb.com/1/upload?key=YOUR_CLIENT_API_KEY"
         axios
           .post(
             `https://api.imgbb.com/1/upload?key=${
@@ -40,13 +37,12 @@ const Register = () => {
             email:data.email,
             displayName:data.name,
             photoURL:photoURL,
-            role:data.role
+            phone:data.phone
           }
-          // create user in the database
           axiosSecure.post('/users',userInfo)
           .then(res => {
             if(res.data.insertedId){
-              console.log('create user in the database',res.data)
+              // console.log('create user in the database',res.data)
              }
           })
 
@@ -56,7 +52,6 @@ const Register = () => {
             };
             profileUpdate(userProfile)
               .then(() => {
-                console.log("user profile updata done");
                 Swal.fire({
                       position: "top-end",
                       icon: "success",
@@ -64,17 +59,30 @@ const Register = () => {
                       showConfirmButton: false,
                       timer: 2000,
                     });
-            navigate(location.state || '/')
+                    navigate(location.state || '/')
+                    window.location.reload();
               })
               .then((error) => {
-                console.log(error.message);
+               const message = error.message
+                       Swal.fire({
+                                     position: "top-end",
+                                     icon: "error",
+                                     title: message,
+                                     showConfirmButton: false,
+                                     timer: 2000,
+                                   });
               });
 
-            // console.log('after saving data',res.data)
           });
       })
-      .catch((error) => {
-        console.log(error.message);
+      .catch((error) => {const message = error.message
+              Swal.fire({
+                            position: "top-end",
+                            icon: "error",
+                            title: message,
+                            showConfirmButton: false,
+                            timer: 2000,
+                          }); console.log(error.message);
       });
   };
 
@@ -121,20 +129,17 @@ const Register = () => {
             {errors.email?.type === "required" && (
               <p className="text-red-500"> Email is required</p>
             )}
-            {/* Role selection */}
-            {/* <label className="label text-black font-medium">Role</label>
-            <select
-              {...register("role", { required: true })}
-                defaultValue=""
-              className="select select-border w-full mb-3"
-              
-            >
-              <option value="" disabled>Select role</option>
-              <option value="Citizen">Citizen</option>
-              <option value="Staff">Staff</option>
-            </select>
-            {errors.role && <p className="text-red-500">Role is required</p>} */}
-
+            {/* phone */}
+            <label className="label text-black font-medium">Phone</label>
+            <input
+              type="number"
+              {...register("phone", { required: true })}
+              className="input w-full"
+              placeholder="Name"
+            />
+            {errors.phone?.type === "required" && (
+              <p className="text-red-500"> Phone Number is required</p>
+            )}
             {/* password filed */}
             <label className="label text-black font-medium">Password</label>
             <input

@@ -13,6 +13,7 @@ import ReportDetails from "../components/ReportDetails/ReportDetails";
 import Edit from "../components/Edit/Edit";
 import AdminHome from "../pages/DahsBoard/Home/AdminHome/AdminHome";
 import AdminAllIssues from "../pages/DahsBoard/AdminAllIssues/AdminAllIssues";
+import ManageStaff from "../pages/DahsBoard/ManageStaff/ManageStaff";
 
 export const router = createBrowserRouter([
   {
@@ -62,7 +63,11 @@ export const router = createBrowserRouter([
       {
         path:'admin-issues',
         element:<AdminAllIssues/>
-      }
+      },
+      {
+        path:'manage-staff',
+        element:<ManageStaff/>
+      },
     ]
   },
 ]);
