@@ -5,7 +5,6 @@ import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useState } from "react";
 import Loading from "../../components/Loading/Loading";
-import { FaSearch } from "react-icons/fa";
 import Swal from "sweetalert2";
 
 const AllIssues = () => {
@@ -13,6 +12,8 @@ const AllIssues = () => {
   const {user}=useAuth()
   const axiosSecure= useAxiosSecure()
   const [searchText,setSearchText] =useState('')
+  // implement later
+  // const [filters, setFilters] = useState({status: "",priority: "",category: "",});
   const [inputValue, setInputValue] = useState("");
    const [page, setPage] = useState(1); // current page
   const limit = 9; // items per page

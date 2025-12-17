@@ -88,7 +88,7 @@ const handleLogout =()=>{
                      <p className="smooth-underline uppercase">{user.displayName}</p>
                     </li>
                     <li>
-                      <MyLink to="/dashboard/my-reports">DashBoard</MyLink>
+                      <MyLink to="/dashboard/admin-home">DashBoard</MyLink>
                     </li>
                     <li>
                       <button

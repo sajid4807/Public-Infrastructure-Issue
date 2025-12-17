@@ -13,7 +13,6 @@ const ReportDetails = () => {
   const {user} = useAuth()
   const location = useLocation()
   const navigate = useNavigate()
-  // const[searchParms] =useSearchParams()
   const [searchParams] = useSearchParams();
    const sessionId = searchParams.get("session_id");
 
@@ -79,6 +78,32 @@ const ReportDetails = () => {
       refetch()
   }
 
+  const handleUpVote = (reportId)=>{
+      if(!user){
+        return navigate('/login')
+      }
+      axiosSecure.post(`/reports/${reportId}/upVote`)
+      .then(() =>{
+        refetch()
+        Swal.fire({
+    position: "top-end",
+    icon: "success",
+    title: "Your upvote successfully",
+    showConfirmButton: false,
+    timer: 1500
+  });
+      })
+       .catch ((err)=> {
+        const message = err.message
+        Swal.fire({
+    position: "top-end",
+    icon: "error",
+    title: message,
+    showConfirmButton: false,
+    timer: 1500
+  });
+    })
+    }
 
   return (
     <div className="max-w-5xl mx-auto my-10">
@@ -129,31 +154,46 @@ const ReportDetails = () => {
         </div>
       </div>
 
-      <div className="flex items-center gap-4 mb-6">
-  {
-    issue.status === 'pending' && issue.email === user?.email && (<Link to={`/edit/${issue._id}`} state={location.pathname} className="btn btn-glow">
+      <div className="flex justify-between gap-4 mb-6">
+  <div className="flex gap-4">
+    {user &&
+ issue.email === user.email &&
+ issue.status?.toLowerCase() === "pending" && (
+  <Link
+    to={`/edit/${issue._id}`}
+    state={location.pathname}
+    className="btn btn-glow"
+  >
     Edit
-  </Link>)
-  }
-  {
-    issue.email === user?.email && (<button onClick={handleReportDelete} className="btn btn-glow">
+  </Link>
+)}
+  {user && issue.email === user.email && (
+  <button onClick={handleReportDelete} className="btn btn-glow">
     Delete
-  </button>)
-  }
+  </button>
+)}
 
   
          {/* BOOST (priority normal + same user) */}
-        {issue.priority === "normal" && issue.email === user?.email && (
-          <button
-            onClick={handleBoost}
-            className="btn bg-gradient-to-r from-orange-500 to-red-500 text-white border-none shadow-lg"
-          >
-            Boost Issue — 100
-          </button>
-        )}
+        {user &&
+ issue.email === user.email &&
+ issue.status === 'pending' &&
+ issue.priority === "normal" && (
+  <button
+    onClick={handleBoost}
+    className="btn bg-gradient-to-r from-orange-500 to-red-500 text-white border-none shadow-lg"
+  >
+    Boost Issue — 100
+  </button>
+)}
+  </div>
 
-  <p className="text-xl font-bold flex-end">Report-Date: {formattedDate}</p>
-
+  <div className="flex items-center gap-4">
+    <p className="text-xl font-bold flex-end">Report-Date: {formattedDate}</p>
+    <p onClick={()=>handleUpVote(issue._id)} className="btn btn-glow font-bold text-xl">
+                👍{issue.upVotes || 0} 
+              </p>
+    </div>
 </div>
 
       {/* DESCRIPTION */}

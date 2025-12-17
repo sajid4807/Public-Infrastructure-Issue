@@ -1,6 +1,6 @@
-import { Link, Outlet } from "react-router";
+import { Link, NavLink, Outlet } from "react-router";
 import LogoDash from "../../components/Logo/LogoDash";
-
+import { MdReport } from "react-icons/md";
 const DashBoardLayout = () => {
   return (
     <div className="drawer lg:drawer-open">
@@ -29,10 +29,12 @@ const DashBoardLayout = () => {
               <path d="M14 10l2 2l-2 2"></path>
             </svg>
           </label>
-          <div className="px-4">Public Infrastructure Issue</div>
+          <Link to='/dashboard/admin-home' className="md:px-4 md:text-2xl font-bold">Public Infrastructure Issue</Link>
         </nav>
         {/* Page content here */}
-        <Outlet></Outlet>
+        <div className="px-4 md:px-5">
+          <Outlet/>
+        </div>
 
       </div>
 
@@ -47,15 +49,20 @@ const DashBoardLayout = () => {
           <ul className="menu w-full grow">
             {/* List item */}
             <li>
-              {/* <button
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="Homepage"
-              > */}
-                {/* Home icon */}
-                
                 <Link to='/'><LogoDash/></Link>
-                {/* <span className="is-drawer-close:hidden">Homepage</span> */}
-              {/* </button> */}
+            </li>
+
+            {/* our link list */}
+              <li>
+              <NavLink
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="All Issue"
+                to="/dashboard/admin-issues"
+              >
+                <MdReport  size={30}/>
+                  
+                <span className="is-drawer-close:hidden">All Issue</span>
+              </NavLink>
             </li>
 
             {/* List item */}

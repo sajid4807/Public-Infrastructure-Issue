@@ -2,27 +2,49 @@ import React from 'react';
 import useAuth from '../../hooks/useAuth';
 import { useLocation, useNavigate } from 'react-router';
 import Swal from 'sweetalert2';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
 
 const SocialLogin = () => {
 
     const {singInGoogle} =useAuth()
     const location =useLocation()
     const navigate = useNavigate()
+    const axiosSecure =useAxiosSecure()
 
     const handleGoogleSignIn =()=>{
         singInGoogle()
-        .then(() => {
-            navigate(location.state || '/')
-            Swal.fire({
+        .then((res) => {
+
+          console.log(res.user)
+                const userInfo ={
+            email:res.user.email,
+            displayName:res.user.displayName,
+            photoURL:res.user.photoURL,
+            // role:res.user.role
+          }
+          axiosSecure.post('/users',userInfo)
+          .then(res => {
+            console.log('user data has been stored', res.data)
+             Swal.fire({
               position: "top-end",
               icon: "success",
               title: "Successfully Google Login Public Infrastructure Issue",
               showConfirmButton: false,
               timer: 1500
             });
+            navigate(location.state || '/')
+          })
+            // navigate(location.state || '/')
+            // Swal.fire({
+            //   position: "top-end",
+            //   icon: "success",
+            //   title: "Successfully Google Login Public Infrastructure Issue",
+            //   showConfirmButton: false,
+            //   timer: 1500
+            // });
         })
         .catch((err) => {
-                console.log(err.message);
+                // console.log(err.message);
                 const error =err.message
                 Swal.fire({
           position: "top-end",

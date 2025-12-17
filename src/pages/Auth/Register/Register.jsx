@@ -1,8 +1,10 @@
 import { useForm } from "react-hook-form";
 import useAuth from "../../../hooks/useAuth";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import SocialLogin from "../../../components/SocialLogin/SocialLogin";
 import axios from "axios";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const Register = () => {
   const {
@@ -11,6 +13,9 @@ const Register = () => {
     formState: { errors },
   } = useForm();
   const { registerUser, profileUpdate } = useAuth();
+  const axiosSecure =useAxiosSecure()
+    const navigate = useNavigate()
+
 
   const handleRegister = (data) => {
     // console.log(data.photo[0])
@@ -29,14 +34,37 @@ const Register = () => {
             formData
           )
           .then((res) => {
-            //   const photoURL = res.data.data.url
+              const photoURL = res.data.data.url
+
+              const userInfo ={
+            email:data.email,
+            displayName:data.name,
+            photoURL:photoURL,
+            role:data.role
+          }
+          // create user in the database
+          axiosSecure.post('/users',userInfo)
+          .then(res => {
+            if(res.data.insertedId){
+              console.log('create user in the database',res.data)
+             }
+          })
+
             const userProfile = {
               displayName: data.name,
-              photoURL: res.data.data.url,
+              photoURL: photoURL,
             };
             profileUpdate(userProfile)
               .then(() => {
                 console.log("user profile updata done");
+                Swal.fire({
+                      position: "top-end",
+                      icon: "success",
+                      title: "Successfully Register",
+                      showConfirmButton: false,
+                      timer: 2000,
+                    });
+            navigate(location.state || '/')
               })
               .then((error) => {
                 console.log(error.message);
@@ -94,7 +122,7 @@ const Register = () => {
               <p className="text-red-500"> Email is required</p>
             )}
             {/* Role selection */}
-            <label className="label text-black font-medium">Role</label>
+            {/* <label className="label text-black font-medium">Role</label>
             <select
               {...register("role", { required: true })}
                 defaultValue=""
@@ -105,7 +133,7 @@ const Register = () => {
               <option value="Citizen">Citizen</option>
               <option value="Staff">Staff</option>
             </select>
-            {errors.role && <p className="text-red-500">Role is required</p>}
+            {errors.role && <p className="text-red-500">Role is required</p>} */}
 
             {/* password filed */}
             <label className="label text-black font-medium">Password</label>
