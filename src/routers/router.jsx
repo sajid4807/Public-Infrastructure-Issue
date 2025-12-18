@@ -14,6 +14,7 @@ import Edit from "../components/Edit/Edit";
 import AdminHome from "../pages/DahsBoard/Home/AdminHome/AdminHome";
 import AdminAllIssues from "../pages/DahsBoard/AdminAllIssues/AdminAllIssues";
 import ManageStaff from "../pages/DahsBoard/ManageStaff/ManageStaff";
+import AdminDashBoard from "../pages/DahsBoard/Home/AdminDashBoard/AdminDashBoard";
 
 export const router = createBrowserRouter([
   {
@@ -58,7 +59,8 @@ export const router = createBrowserRouter([
     children:[
       {
         path:'admin-home',
-        element:<AdminHome/>
+        // element:<AdminHome/>
+        element:<AdminDashBoard/>
       },
       {
         path:'admin-issues',

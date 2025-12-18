@@ -1,9 +1,10 @@
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import Swal from "sweetalert2";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import Swal from "sweetalert2";
+import { FaPlus, FaUserEdit, FaTrash } from "react-icons/fa";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const ManageStaff = () => {
   const createStaffModalRef = useRef();
@@ -21,20 +22,22 @@ const ManageStaff = () => {
     },
   });
 
-  const openStaffUpdateModal = (staff) => {
-    setSelectedStaff(staff);
-
-    reset({
-      name: staff.displayName,
-      phone: staff.phone,
-    });
-
-    updateStaffModalRef.current.showModal();
-  };
+  /* ================= MODAL HANDLERS ================= */
 
   const openStaffCreateModal = () => {
     createStaffModalRef.current.showModal();
   };
+
+  const openStaffUpdateModal = (staff) => {
+    setSelectedStaff(staff);
+    reset({
+      name: staff.displayName,
+      phone: staff.phone,
+    });
+    updateStaffModalRef.current.showModal();
+  };
+
+  /* ================= UPDATE STAFF ================= */
 
   const handleUpdateStaff = async (data) => {
     try {
@@ -77,16 +80,17 @@ const ManageStaff = () => {
         refetch();
       }
     } catch (error) {
-      const message = error.message;
       Swal.fire({
         position: "top-end",
         icon: "error",
-        title: message,
+        title: error.message,
         showConfirmButton: false,
         timer: 2000,
       });
     }
   };
+
+  /* ================= DELETE STAFF ================= */
 
   const handleDeleteUser = (staffId) => {
     Swal.fire({
@@ -94,8 +98,8 @@ const ManageStaff = () => {
       text: "You won't be able to revert this!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
+      confirmButtonColor: "#4f46e5",
+      cancelButtonColor: "#dc2626",
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
@@ -103,18 +107,10 @@ const ManageStaff = () => {
           .delete(`/staff/${staffId}`)
           .then(() => {
             refetch();
-            Swal.fire({
-              title: "Deleted!",
-              text: "Staff has been deleted.",
-              icon: "success",
-            });
+            Swal.fire("Deleted!", "Staff has been deleted.", "success");
           })
           .catch(() => {
-            Swal.fire({
-              title: "Error!",
-              text: "Failed to delete staff.",
-              icon: "error",
-            });
+            Swal.fire("Error!", "Failed to delete staff.", "error");
           });
       }
     });
@@ -122,160 +118,188 @@ const ManageStaff = () => {
 
   return (
     <div className="">
-      <div className="flex my-5 justify-between">
-        <h2 className="text-2xl  font-bold">Manage Staff {staffs.length}</h2>
+      {/* ================= HEADER ================= */}
+      <div className="my-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-800">
+            Manage Staff
+          </h2>
+          <p className="text-sm font-bold text-gray-500">
+            Total Staff: {staffs.length}
+          </p>
+        </div>
 
-        <button className="btn btn-glow" onClick={openStaffCreateModal}>
-          + Add Staff
+        <button
+          onClick={openStaffCreateModal}
+          className="w-full md:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 px-5 py-2.5 text-white font-semibold shadow-md hover:opacity-90"
+        >
+          <FaPlus /> Add Staff
         </button>
       </div>
 
-      {/* Staff Table */}
-      <div className="overflow-x-auto">
-        <table className="table">
-          {/* head */}
-          <thead>
-            <tr>
-              <th>SL NO.</th>
-              <th>Image</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Phone</th>
-              {/* <th>Role</th> */}
-              {/* <th>Status</th> */}
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {staffs.map((staff, index) => (
-              <tr key={staff._id}>
-                <td>{index + 1}</td>
-                <td>
-                  <div className="avatar">
-                    <div className="mask mask-squircle h-12 w-12">
-                      <img src={staff.photoURL} alt="staff image" />
-                    </div>
-                  </div>
-                </td>
-                <td>{staff.displayName}</td>
-                <td>{staff.email}</td>
-                <td>{staff.phone}</td>
-                {/* <td>{staff.status}</td> */}
-                <th>
-                  <button
-                    autoFocus
-                    onClick={() => openStaffUpdateModal(staff)}
-                    className="btn btn-glow"
-                  >
-                    Update
-                  </button>
-                  <button
-                    onClick={() => handleDeleteUser(staff._id)}
-                    className="btn btn-outline ms-2.5 rounded-lg"
-                  >
-                    Delete
-                  </button>
-                </th>
+      {/* ================= DESKTOP / TABLET TABLE ================= */}
+      <div className="hidden md:block rounded-2xl bg-white shadow-lg border overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead className="bg-gray-50 text-gray-600 uppercase text-xs">
+              <tr>
+                <th className="px-6 py-4 text-left">#</th>
+                <th className="px-6 py-4 text-left">Staff</th>
+                <th className="px-6 py-4">Email</th>
+                <th className="px-6 py-4 hidden lg:table-cell">Phone</th>
+                <th className="px-6 py-4 text-center">Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+
+            <tbody className="divide-y">
+              {staffs.map((staff, index) => (
+                <tr key={staff._id} className="hover:bg-gray-50">
+                  <td className="px-6 py-4">{index + 1}</td>
+
+                  <td className="px-6 py-4 flex items-center gap-3">
+                    <img
+                      src={staff.photoURL}
+                      className="h-10 w-10 rounded-full object-cover"
+                    />
+                    <div>
+                      <p className="font-semibold">{staff.displayName}</p>
+                      <p className="text-xs text-gray-400">Staff</p>
+                    </div>
+                  </td>
+
+                  <td className="px-6 py-4">{staff.email}</td>
+
+                  <td className="px-6 py-4 hidden lg:table-cell">
+                    {staff.phone}
+                  </td>
+
+                  <td className="px-6 py-4 text-right">
+                    <div className="inline-flex gap-2">
+                      <button
+                        onClick={() => openStaffUpdateModal(staff)}
+                        className="flex items-center gap-1 rounded-lg bg-indigo-50 px-3 py-1.5 text-indigo-600 hover:bg-indigo-100"
+                      >
+                        <FaUserEdit /> Edit
+                      </button>
+
+                      <button
+                        onClick={() => handleDeleteUser(staff._id)}
+                        className="flex items-center gap-1 rounded-lg bg-red-50 px-3 py-1.5 text-red-600 hover:bg-red-100"
+                      >
+                        <FaTrash /> Delete
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
-      {/* Add Staff Modal */}
-      <dialog
-        ref={createStaffModalRef}
-        className="modal modal-bottom sm:modal-middle"
-      >
-        <div className="modal-box">
-          <form className="">
-            <fieldset className="">
-              {/* name */}
-              <label className="label text-black font-medium">Name</label>
-              <input type="text" className="input w-full" placeholder="Name" />
-              {/* image filed */}
-              <label className="label text-black font-medium">Photo</label>
-              <input
-                type="file"
-                className="file-input w-full"
-                placeholder="Photo"
+
+      {/* ================= MOBILE CARD VIEW ================= */}
+      <div className="md:hidden space-y-4">
+        {staffs.map((staff) => (
+          <div
+            key={staff._id}
+            className="rounded-2xl border bg-white p-4 shadow-sm"
+          >
+            <div className="flex items-center gap-3 mb-3">
+              <img
+                src={staff.photoURL}
+                className="h-12 w-12 rounded-full object-cover"
               />
-              {/* phone no */}
-              <label className="label mt-4 text-black font-semibold">
-                Phone Number
-              </label>
-              <input
-                type="number"
-                className="input w-full"
-                placeholder="Phone Number"
-              />
-              {/* email */}
-              <label className="label text-black font-medium">Email</label>
-              <input className="input w-full" placeholder="Email" />
-              {/* password filed */}
-              <label className="label text-black font-medium">Password</label>
-              <input
-                type="password"
-                className="input w-full"
-                placeholder="Password"
-              />
-              <button className="btn w-full btn-glow mt-4">
-                Register Staff
+              <div>
+                <p className="font-semibold">{staff.displayName}</p>
+                <p className="text-xs text-gray-500">{staff.email}</p>
+              </div>
+            </div>
+
+            <p className="text-sm text-gray-600 mb-3">📞 {staff.phone}</p>
+
+            <div className="flex gap-2">
+              <button
+                onClick={() => openStaffUpdateModal(staff)}
+                className="flex-1 rounded-xl bg-indigo-50 py-2 text-indigo-600 font-medium"
+              >
+                Update
               </button>
-            </fieldset>
-          </form>
-          <div className="modal-action">
-            <form method="dialog">
-              <button className="btn">Close</button>
-            </form>
+
+              <button
+                onClick={() => handleDeleteUser(staff._id)}
+                className="flex-1 rounded-xl bg-red-50 py-2 text-red-600 font-medium"
+              >
+                Delete
+              </button>
+            </div>
           </div>
+        ))}
+      </div>
+
+      {/* ================= CREATE STAFF MODAL ================= */}
+      <dialog ref={createStaffModalRef} className="modal">
+        <div className="modal-box rounded-2xl">
+          <h3 className="text-xl font-bold mb-4">Add New Staff</h3>
+
+          <form className="space-y-3">
+            <input className="input input-bordered w-full" placeholder="Name" />
+            <input type="file" className="file-input w-full" />
+            <input
+              className="input input-bordered w-full"
+              placeholder="Phone"
+            />
+            <input
+              className="input input-bordered w-full"
+              placeholder="Email"
+            />
+            <input
+              type="password"
+              className="input input-bordered w-full"
+              placeholder="Password"
+            />
+
+            <button className="w-full rounded-xl bg-indigo-600 py-2 text-white font-semibold">
+              Register Staff
+            </button>
+          </form>
+
+          <form method="dialog" className="mt-3 text-right">
+            <button className="btn btn-sm">Close</button>
+          </form>
         </div>
       </dialog>
 
-      {/* update staff user */}
+      {/* ================= UPDATE STAFF MODAL ================= */}
+      <dialog ref={updateStaffModalRef} className="modal">
+        <div className="modal-box rounded-2xl">
+          <h3 className="text-xl font-bold mb-4">Update Staff</h3>
 
-      <dialog
-        ref={updateStaffModalRef}
-        className="modal modal-bottom sm:modal-middle"
-      >
-        <div className="modal-box">
-          <form onSubmit={handleSubmit(handleUpdateStaff)} className="">
-            <fieldset className="">
-              {/* name */}
-              <label className="label text-black font-medium">Name</label>
-              <input
-                type="text"
-                {...register("name")}
-                className="input w-full"
-                placeholder="Name"
-              />
-              {/* image filed */}
-              <label className="label text-black font-medium">Photo</label>
-              <input
-                type="file"
-                {...register("photo")}
-                className="file-input w-full"
-                placeholder="Photo"
-              />
-              {/* phone no */}
-              <label className="label mt-4 text-black font-semibold">
-                Phone Number
-              </label>
-              <input
-                type="number"
-                {...register("phone")}
-                defaultValue=""
-                className="input w-full"
-                placeholder="Phone Number"
-              />
+          <form
+            onSubmit={handleSubmit(handleUpdateStaff)}
+            className="space-y-3"
+          >
+            <input
+              {...register("name")}
+              className="input input-bordered w-full"
+            />
+            <input
+              type="file"
+              {...register("photo")}
+              className="file-input w-full"
+            />
+            <input
+              {...register("phone")}
+              className="input input-bordered w-full"
+            />
 
-              <button className="btn w-full btn-glow mt-4">Update</button>
-            </fieldset>
+            <button className="w-full rounded-xl bg-indigo-600 py-2 text-white font-semibold">
+              Update Staff
+            </button>
           </form>
-          <div className="modal-action">
-            <form method="dialog">
-              <button className="btn">Close</button>
-            </form>
-          </div>
+
+          <form method="dialog" className="mt-3 text-right">
+            <button className="btn btn-sm">Close</button>
+          </form>
         </div>
       </dialog>
     </div>
