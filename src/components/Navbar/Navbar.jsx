@@ -78,7 +78,7 @@ const handleLogout =()=>{
                       referrerPolicy="no-referrer"
                       src={`${user ? user?.photoURL : ""}`}
                       alt=""
-                      className="w-12 h-12 rounded-full border cursor-pointer"
+                      className="w-14 h-14 rounded-full border cursor-pointer"
                     />
                   </div>
                   <ul

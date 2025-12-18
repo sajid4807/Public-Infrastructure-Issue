@@ -62,7 +62,7 @@ const AdminHome = () => {
   const COLORS = ["#f59e0b", "#10b981", "#ef4444"];
 
   return (
-    <div className="space-y-10 mb-10 md:mb-20">
+    <div className="space-y-10 mb-10 md:mb-14">
 
       {/* ================= HEADER ================= */}
       <div className="mt-6">

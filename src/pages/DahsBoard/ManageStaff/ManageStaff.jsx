@@ -15,9 +15,9 @@ const ManageStaff = () => {
   const { register, handleSubmit, reset } = useForm();
 
   const { data: staffs = [], refetch } = useQuery({
-    queryKey: ["users"],
+    queryKey: ["staff"],
     queryFn: async () => {
-      const res = await axiosSecure.get("/users");
+      const res = await axiosSecure.get("/staff");
       return res.data;
     },
   });

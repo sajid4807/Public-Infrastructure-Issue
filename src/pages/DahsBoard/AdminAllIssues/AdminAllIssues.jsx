@@ -26,7 +26,7 @@ const AdminAllIssues = () => {
     queryKey: ["staff"],
     enabled: !!selectedIssue,
     queryFn: async () => {
-      const res = await axiosSecure.get("/users");
+      const res = await axiosSecure.get("/staff");
       return res.data;
     },
   });
