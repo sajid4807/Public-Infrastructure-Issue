@@ -62,7 +62,8 @@ const Register = () => {
                     navigate(location.state || '/')
                     window.location.reload();
               })
-              .then((error) => {
+              // when i delete before check
+              .catch((error) => {
                const message = error.message
                        Swal.fire({
                                      position: "top-end",
@@ -135,7 +136,7 @@ const Register = () => {
               type="number"
               {...register("phone", { required: true })}
               className="input w-full"
-              placeholder="Name"
+              placeholder="Phone"
             />
             {errors.phone?.type === "required" && (
               <p className="text-red-500"> Phone Number is required</p>

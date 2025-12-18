@@ -5,6 +5,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { FaPlus, FaUserEdit, FaTrash } from "react-icons/fa";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import Loading from "../../../components/Loading/Loading";
 
 const ManageStaff = () => {
   const createStaffModalRef = useRef();
@@ -14,7 +15,7 @@ const ManageStaff = () => {
 
   const { register, handleSubmit, reset } = useForm();
 
-  const { data: staffs = [], refetch } = useQuery({
+  const { data: staffs = [], refetch,isLoading } = useQuery({
     queryKey: ["staff"],
     queryFn: async () => {
       const res = await axiosSecure.get("/staff");
@@ -115,6 +116,10 @@ const ManageStaff = () => {
       }
     });
   };
+
+  if(isLoading){
+    return <Loading/>
+  }
 
   return (
     <div className="">
@@ -273,7 +278,6 @@ const ManageStaff = () => {
       <dialog ref={updateStaffModalRef} className="modal">
         <div className="modal-box rounded-2xl">
           <h3 className="text-xl font-bold mb-4">Update Staff</h3>
-
           <form
             onSubmit={handleSubmit(handleUpdateStaff)}
             className="space-y-3"

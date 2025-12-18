@@ -63,20 +63,51 @@ const ReportDetails = () => {
       }).then(() => {
         navigate("/all-issue");
       });
-    });
+    })
+    .catch((err) => {
+                // const message = err.message;
+                Swal.fire({
+                      icon: 'error',
+                      title: 'Error',
+                      text: err.response?.data?.message || err.message || 'Something went wrong!',
+                    });
+              });
 }
 });
   }
 
-  const handleBoost =async()=>{
-    const paymentInfo={
-      reportId:issue._id,
-      email:issue.email
+ const handleBoost = async () => {
+  try {
+    const paymentInfo = {
+      reportId: issue._id,
+      email: issue.email,
+    };
+
+    const res = await axiosSecure.post('create-checkout-session', paymentInfo);
+
+    if (res?.data?.url) {
+      // Redirect to checkout page
+      window.location.href = res.data.url;
+      // refetch()
+    } else {
+      // Handle unexpected response
+      Swal.fire({
+        icon: 'error',
+        title: 'Payment Error',
+        text: 'Failed to create checkout session. Please try again.',
+      });
     }
-    const res =await axiosSecure.post('create-checkout-session',paymentInfo)
-    window.location.href=res.data.url;
-      refetch()
+
+    refetch();
+  } catch (error) {
+    // Handle network/server errors
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: error.response?.data?.message || error.message || 'Something went wrong!',
+    });
   }
+};
 
   const handleUpVote = (reportId)=>{
       if(!user){
@@ -94,14 +125,12 @@ const ReportDetails = () => {
   });
       })
        .catch ((err)=> {
-        const message = err.message
+        // const message = err.message
         Swal.fire({
-    position: "top-end",
-    icon: "error",
-    title: message,
-    showConfirmButton: false,
-    timer: 1500
-  });
+              icon: 'error',
+              title: 'Error',
+              text: err.response?.data?.message || err.message || 'Something went wrong!',
+            });
     })
     }
 

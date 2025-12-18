@@ -1,7 +1,7 @@
 import { Link, NavLink, Outlet } from "react-router";
 import LogoDash from "../../components/Logo/LogoDash";
 import { MdReport } from "react-icons/md";
-import { FaUsersCog } from "react-icons/fa";
+import { FaUsers, FaUsersCog, FaUserShield } from "react-icons/fa";
 const DashBoardLayout = () => {
   return (
     <div className="drawer lg:drawer-open">
@@ -56,6 +56,24 @@ const DashBoardLayout = () => {
 
 
             {/* our link list */}
+
+
+            
+              {/* admin profile */}
+            <li>
+              <NavLink
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="Profile"
+                to="/dashboard/admin-profile"
+              >
+                <FaUserShield  size={30}/>
+                  
+                <span className="is-drawer-close:hidden text-2xl font-medium">Profile</span>
+              </NavLink>
+            </li>
+
+
+            {/* all issue */}
               <li>
               <NavLink
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
@@ -64,10 +82,26 @@ const DashBoardLayout = () => {
               >
                 <MdReport  size={30}/>
                   
-                <span className="is-drawer-close:hidden">All Issue</span>
+                <span className="is-drawer-close:hidden text-2xl font-medium">All Issue</span>
               </NavLink>
             </li>
 
+
+              {/* manage users */}
+            <li>
+              <NavLink
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="Manage Users"
+                to="/dashboard/manage-users"
+              >
+                <FaUsers  size={30}/>
+                  
+                <span className="is-drawer-close:hidden text-2xl font-medium">Manage Users</span>
+              </NavLink>
+            </li>
+
+
+              {/* manage staff */}
             <li>
               <NavLink
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
@@ -76,9 +110,11 @@ const DashBoardLayout = () => {
               >
                 <FaUsersCog  size={30}/>
                   
-                <span className="is-drawer-close:hidden">Manage Staff</span>
+                <span className="is-drawer-close:hidden text-2xl font-medium">Manage Staff</span>
               </NavLink>
             </li>
+
+
 
 
 

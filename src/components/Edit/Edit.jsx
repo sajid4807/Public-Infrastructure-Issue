@@ -35,6 +35,8 @@ const Edit = () => {
 }, [issue, reset]);
 
 
+
+
     const handleReportEdit =data=>{
         axiosSecure.patch(`/reports/${issue._id}`,data)
         .then(() => {
@@ -49,6 +51,14 @@ const Edit = () => {
           location.state ? location.state : location.pathname
         );
         })
+        .catch((err) => {
+                    // const message = err.message;
+                    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: err.response?.data?.message || err.message || 'Something went wrong!',
+    });
+                  });
     }
 
 

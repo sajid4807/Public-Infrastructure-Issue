@@ -49,17 +49,14 @@ const Report = () => {
             reset();
           })
           .catch((err) => {
-            const message = err.message;
+            // const message = err.message;
             Swal.fire({
-              position: "top-end",
-              icon: "error",
-              title: message,
-              showConfirmButton: false,
-              timer: 1500,
-            });
+                  icon: 'error',
+                  title: 'Error',
+                  text: err.response?.data?.message || err.message || 'Something went wrong!',
+                });
           });
 
-        console.log("after saving data", data, imageURL);
       });
   };
 

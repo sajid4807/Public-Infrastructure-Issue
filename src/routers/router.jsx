@@ -11,10 +11,13 @@ import DashBoardLayout from "../layout/DashBoardLayout/DashBoardLayout";
 // import MyReports from "../pages/DahsBoard/MyReports/MyReports";
 import ReportDetails from "../components/ReportDetails/ReportDetails";
 import Edit from "../components/Edit/Edit";
-import AdminHome from "../pages/DahsBoard/Home/AdminHome/AdminHome";
+// import AdminHome from "../pages/DahsBoard/Home/AdminHome/AdminHome";
 import AdminAllIssues from "../pages/DahsBoard/AdminAllIssues/AdminAllIssues";
 import ManageStaff from "../pages/DahsBoard/ManageStaff/ManageStaff";
 import AdminDashBoard from "../pages/DahsBoard/Home/AdminDashBoard/AdminDashBoard";
+import ManageUsers from "../pages/DahsBoard/ManageUsers/ManageUsers";
+// import AdminProfileUpdate from "../pages/DahsBoard/AdminProfile/AdminProfile";
+import AdminProfile from "../pages/DahsBoard/AdminProfile/AdminProfile";
 
 export const router = createBrowserRouter([
   {
@@ -59,7 +62,6 @@ export const router = createBrowserRouter([
     children:[
       {
         path:'admin-home',
-        // element:<AdminHome/>
         element:<AdminDashBoard/>
       },
       {
@@ -70,6 +72,15 @@ export const router = createBrowserRouter([
         path:'manage-staff',
         element:<ManageStaff/>
       },
+      {
+        path:'manage-users',
+        element:<ManageUsers/>
+      },
+      {
+        path:'admin-profile',
+        // element:<AdminProfileUpdate/>
+        element:<AdminProfile/>
+      }
     ]
   },
 ]);

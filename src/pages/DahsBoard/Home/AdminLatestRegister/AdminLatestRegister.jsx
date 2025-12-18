@@ -11,7 +11,6 @@ const AdminLatestRegister = () => {
     queryFn: async () => {
       const res = await axiosSecure.get("/users");
       return res.data
-        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
         .slice(0, 6);
     },
   });
