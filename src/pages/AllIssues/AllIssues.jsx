@@ -12,6 +12,11 @@ const AllIssues = () => {
   const {user}=useAuth()
   const axiosSecure= useAxiosSecure()
   const [searchText,setSearchText] =useState('')
+  const [filters, setFilters] = useState({
+  status: "",
+  priority: "",
+  category: "",
+});
   // implement later
   // const [filters, setFilters] = useState({status: "",priority: "",category: "",});
   const [inputValue, setInputValue] = useState("");
@@ -20,15 +25,37 @@ const AllIssues = () => {
 
   const navigate = useNavigate()
 
-  const { data,isLoading,refetch } = useQuery({
-    queryKey: ["reports",page,searchText],
-    queryFn: async () => {
-      // const res = await axiosInstance.get("/reports");
-      const res = await axiosInstance.get(`/reports?page=${page}&limit=${limit}&searchText=${searchText}`);
-      return res.data;
-    },
-    keepPreviousData: true,
-  });
+  // const { data,isLoading,refetch } = useQuery({
+  //   queryKey: ["reports",page,searchText,filters],
+  //   queryFn: async () => {
+  //     // const res = await axiosInstance.get("/reports");
+  //     if (filters.status) params.append("status", filters.status);
+  //   if (filters.priority) params.append("priority", filters.priority);
+  //   if (filters.category) params.append("category", filters.category);
+  //     const res = await axiosInstance.get(`/reports?page=${page}&limit=${limit}&searchText=${searchText}`);
+  //     return res.data;
+  //   },
+  //   keepPreviousData: true,
+  // });
+  const { data, isLoading, refetch } = useQuery({
+  queryKey: ["reports", page, searchText, filters],
+  queryFn: async () => {
+    const params = new URLSearchParams({
+      page,
+      limit,
+      searchText,
+    });
+
+    if (filters.status) params.append("status", filters.status);
+    if (filters.priority) params.append("priority", filters.priority);
+    if (filters.category) params.append("category", filters.category);
+
+    const res = await axiosInstance.get(`/reports?${params.toString()}`);
+    return res.data;
+  },
+  keepPreviousData: true,
+});
+
   if(isLoading){
     return <Loading></Loading>
   }
@@ -88,6 +115,60 @@ const totalPages = Math.ceil(data?.totalReports / limit || 1);
   >
     Search
   </button>
+  <div className="flex flex-wrap gap-3 mb-6">
+  {/* Status */}
+  <select
+    className="select select-bordered"
+    value={filters.status}
+    onChange={(e) =>
+      setFilters({ ...filters, status: e.target.value })
+    }
+  >
+    <option value="">All Status</option>
+    <option value="pending">Pending</option>
+    <option value="in-progress">In-Progress</option>
+    <option value="resolved">Resolved</option>
+    <option value="closed">Closed</option>
+  </select>
+
+  {/* Priority */}
+  <select
+    className="select select-bordered"
+    value={filters.priority}
+    onChange={(e) =>
+      setFilters({ ...filters, priority: e.target.value })
+    }
+  >
+    <option value="">All Priority</option>
+    <option value="high">High</option>
+    <option value="normal">Normal</option>
+  </select>
+
+  {/* Category */}
+  <select
+    className="select select-bordered"
+    value={filters.category}
+    onChange={(e) =>
+      setFilters({ ...filters, category: e.target.value })
+    }
+  >
+    <option value="">All Category</option>
+     <option value="Road">Road</option>
+          <option value="Drainage">Drainage</option>
+          <option value="Streetlights">Streetlights</option>
+          <option value="Water">Water</option>
+          <option value="Garbage">Garbage</option>
+          <option value="Footpaths">Footpaths</option>
+    {/* <option value="Road">Road</option>
+    <option value="Water">Water</option>
+    <option value="Garbage">Garbage</option>
+    <option value="Electricity">Electricity</option>
+    <option value="Drainage">Drainage</option> */}
+  </select>
+
+  
+</div>
+
 </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">

@@ -2,7 +2,19 @@ import { Link, NavLink, Outlet } from "react-router";
 import LogoDash from "../../components/Logo/LogoDash";
 import { MdReport } from "react-icons/md";
 import { FaUsers, FaUsersCog, FaUserShield } from "react-icons/fa";
+import useRole from "../../hooks/useRole";
 const DashBoardLayout = () => {
+
+  const {role} =useRole()
+
+  //  if (role === "admin") {
+  //   return <Navigate to="/dashboard/admin-home" replace />;
+  // }
+
+  // if (role === "citizen") {
+  //   return <Navigate to="/dashboard/citizen-home" replace />;
+  // }
+
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
@@ -30,7 +42,7 @@ const DashBoardLayout = () => {
               <path d="M14 10l2 2l-2 2"></path>
             </svg>
           </label>
-          <Link to='/dashboard/admin-home' className="md:px-4 md:text-2xl font-bold">Public Infrastructure Issue</Link>
+          <Link to={`${role === 'admin'? '/dashboard/admin-home': role === 'staff' ? '/dashboard/staff-home': '/dashboard/citizen-home'}`} className="md:px-4 md:text-2xl font-bold">Public Infrastructure Issue</Link>
         </nav>
         {/* Page content here */}
         <div className="px-4 md:px-5">
@@ -57,10 +69,30 @@ const DashBoardLayout = () => {
 
             {/* our link list */}
 
+{role === 'citizen' && (<>
+<li>
+              <NavLink
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="Profile"
+                to="/dashboard"
+              >
+                <FaUserShield  size={30}/>
+                  
+                <span className="is-drawer-close:hidden text-2xl font-medium">citizen-Route</span>
+              </NavLink>
+            </li>
+</>)}
+            
+                  
+
+                    
+              
+
 
             
               {/* admin profile */}
-            <li>
+              {role ==="admin" && (<>
+                <li>
               <NavLink
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                 data-tip="Profile"
@@ -113,6 +145,7 @@ const DashBoardLayout = () => {
                 <span className="is-drawer-close:hidden text-2xl font-medium">Manage Staff</span>
               </NavLink>
             </li>
+              </>)}
 
 
 

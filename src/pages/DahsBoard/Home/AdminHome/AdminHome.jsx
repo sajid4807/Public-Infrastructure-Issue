@@ -1,7 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
-import { FaBug, FaClock, FaCheckCircle, FaTimesCircle } from "react-icons/fa";
+import { useEffect, useState } from "react";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import Loading from "../../../../components/Loading/Loading";
+
+import {
+  FaClock,
+  FaCheckCircle,
+  FaTimesCircle,
+  FaClipboardList,
+} from "react-icons/fa";
 
 import {
   ResponsiveContainer,
@@ -16,8 +23,34 @@ import {
   Legend,
 } from "recharts";
 
+/* ================= Animated Number Hook ================= */
+const useCountUp = (end, duration = 800) => {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (end == null) return;
+
+    const startTime = performance.now();
+
+    const animate = (currentTime) => {
+      const progress = Math.min((currentTime - startTime) / duration, 1);
+      setCount(Math.floor(progress * end));
+
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      }
+    };
+
+    requestAnimationFrame(animate);
+  }, [end, duration]);
+
+  return count;
+};
+
 /* ================= STAT CARD ================= */
 const StatCard = ({ title, value, icon: Icon, gradient }) => {
+  const animatedValue = useCountUp(value);
+
   return (
     <div
       className={`relative overflow-hidden rounded-2xl p-6 text-white shadow-lg transition-transform hover:-translate-y-1 ${gradient}`}
@@ -30,15 +63,17 @@ const StatCard = ({ title, value, icon: Icon, gradient }) => {
         <div className="rounded-xl bg-white/20 p-3">
           <Icon size={28} />
         </div>
+
         <div>
           <p className="text-sm opacity-90">{title}</p>
-          <h3 className="text-3xl font-bold">{value ?? 0}</h3>
+          <h3 className="text-3xl font-bold">{animatedValue}</h3>
         </div>
       </div>
     </div>
   );
 };
 
+/* ================= ADMIN HOME ================= */
 const AdminHome = () => {
   const axiosSecure = useAxiosSecure();
 
@@ -79,7 +114,7 @@ const AdminHome = () => {
         <StatCard
           title="Total Issues"
           value={stats.totalIssues}
-          icon={FaBug}
+          icon={FaClipboardList}
           gradient="bg-gradient-to-br from-indigo-500 to-purple-600"
         />
 
@@ -116,7 +151,6 @@ const AdminHome = () => {
 
           <div className="h-[300px] w-full">
             <ResponsiveContainer width="100%" height="100%">
-            {/* <ResponsiveContainer width="100%" aspect={2}> */}
               <BarChart data={chartData}>
                 <XAxis dataKey="name" />
                 <YAxis />

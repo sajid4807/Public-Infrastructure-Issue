@@ -17,12 +17,12 @@ const ManageUsers = () => {
 const handleBlockUser = (userId) => {
   Swal.fire({
     title: "Are you sure?",
-    text: "This user will be blocked and cannot access the system!",
+    text: "This citizen will be blocked and cannot access the system!",
     icon: "warning",
     showCancelButton: true,
     confirmButtonColor: "#d33",
     cancelButtonColor: "#3085d6",
-    confirmButtonText: "Yes, block user",
+    confirmButtonText: "Yes, block citizen",
   }).then((result) => {
     if (result.isConfirmed) {
       axiosSecure
@@ -32,7 +32,7 @@ const handleBlockUser = (userId) => {
             Swal.fire({
               icon: "success",
               title: "Blocked!",
-              text: "User has been blocked successfully.",
+              text: "citizen has been blocked successfully.",
               timer: 1500,
               showConfirmButton: false,
             });
@@ -45,7 +45,7 @@ const handleBlockUser = (userId) => {
             title: "Error!",
             text:
               error.response?.data?.message ||
-              "Failed to block the user. Try again.",
+              "Failed to block the citizen. Try again.",
           });
         });
     }
@@ -55,15 +55,15 @@ const handleBlockUser = (userId) => {
 
  const handleUnBlockUser = (userId) => {
   Swal.fire({
-    title: "Unblock user?",
-    text: "This user will regain access.",
+    title: "Unblock citizen?",
+    text: "This citizen will regain access.",
     icon: "question",
     showCancelButton: true,
     confirmButtonText: "Yes, unblock",
   }).then((result) => {
     if (result.isConfirmed) {
       axiosSecure.patch(`/users/unblock/${userId}`).then(() => {
-        Swal.fire("Unblocked!", "User access restored.", "success");
+        Swal.fire("Unblocked!", "citizen access restored.", "success");
         refetch();
       });
     }
@@ -77,10 +77,10 @@ if(isLoading)return <Loading/>;
     <div>
       <div>
         <h2 className="text-2xl md:text-3xl font-bold text-gray-800">
-          Manage users
+          Manage Citizen
         </h2>
         <p className="text-sm font-bold text-gray-500">
-          Total Staff: {users.length}
+          Total Citizen: {users.length}
         </p>
       </div>
       <div className="overflow-x-auto">

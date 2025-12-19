@@ -4,9 +4,12 @@ import Logo from "../Logo/Logo";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 import { MdOutlineLogout } from "react-icons/md";
+import useRole from "../../hooks/useRole";
 
 const Navbar = () => {
   const {user,logOut}=useAuth() 
+  const {role}=useRole()
+  // const navigate = useNavigate();
     const links =<>
     <li><MyLink to='/'>Home</MyLink></li>
     <li><MyLink to='/all-issue'>All Issues</MyLink></li>
@@ -46,6 +49,17 @@ const handleLogout =()=>{
   }
 })
 }
+
+// const handleClick = () => {
+//     if (role === "admin") {
+//       navigate("/dashboard/admin-home");
+//     } else if (role === "citizen") {
+//       navigate("/dashboard/citizen-home");
+//     } else {
+//       // অন্য কেউ বা unknown role
+//       navigate("/"); 
+//     }
+//   };
 
     return (
         <div className="navbar md:px-10">
@@ -88,7 +102,7 @@ const handleLogout =()=>{
                      <p className="smooth-underline uppercase">{user.displayName}</p>
                     </li>
                     <li>
-                      <MyLink to="/dashboard/admin-home">DashBoard</MyLink>
+                      <MyLink to={role === 'admin' ? '/dashboard/admin-home' : role === 'staff' ? '/dashboard/staff-home' : '/dashboard/citizen-home'}>DashBoard</MyLink>
                     </li>
                     <li>
                       <button

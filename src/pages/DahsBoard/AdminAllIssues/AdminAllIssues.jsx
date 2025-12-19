@@ -1,18 +1,18 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useRef, useState } from "react";
 import Swal from "sweetalert2";
 
 const AdminAllIssues = () => {
   const axiosSecure = useAxiosSecure();
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
   const [selectedIssue, setSelectedIssue] = useState(null);
   const [selectedStaff, setSelectedStaff] = useState("");
 
   const assignModalRef = useRef();
 
   // Fetch issues
-  const { data: issues = [] } = useQuery({
+  const { data: issues = [],refetch } = useQuery({
     queryKey: ["issues"],
     queryFn: async () => {
       const res = await axiosSecure.get("/reports/admin");
@@ -20,7 +20,7 @@ const AdminAllIssues = () => {
     },
   });
 
-  console.log(issues)
+  // console.log(issues)
   // Fetch staff
   const { data: staffs = [] } = useQuery({
     queryKey: ["staff"],
@@ -63,14 +63,17 @@ const AdminAllIssues = () => {
         showConfirmButton: false,
         timer: 2000,
       });
+      refetch()
+
 
       // Reset selection & close modal
       setSelectedStaff("");
       setSelectedIssue(null);
       assignModalRef.current.close();
 
+
       // Refresh issues table
-      queryClient.invalidateQueries(["issues"]);
+      // queryClient.invalidateQueries(["issues"]);
     } catch (err) {
       // console.error(err);
       Swal.fire(
@@ -91,7 +94,8 @@ const AdminAllIssues = () => {
     if (!confirm.isConfirmed) return;
 
     await axiosSecure.patch(`/reports/${id}/reject`);
-    queryClient.invalidateQueries(["issues"]);
+    refetch()
+    // queryClient.invalidateQueries(["issues"]);
   };
 
   return (

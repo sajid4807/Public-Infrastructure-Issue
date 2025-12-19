@@ -18,6 +18,8 @@ import AdminDashBoard from "../pages/DahsBoard/Home/AdminDashBoard/AdminDashBoar
 import ManageUsers from "../pages/DahsBoard/ManageUsers/ManageUsers";
 // import AdminProfileUpdate from "../pages/DahsBoard/AdminProfile/AdminProfile";
 import AdminProfile from "../pages/DahsBoard/AdminProfile/AdminProfile";
+import AdminRoute from "../Private/AdminRoute/AdminRoute";
+import CitizenHome from "../pages/DahsBoard/CitizenDashBoard/CitizenHome/CitizenHome";
 
 export const router = createBrowserRouter([
   {
@@ -62,24 +64,27 @@ export const router = createBrowserRouter([
     children:[
       {
         path:'admin-home',
-        element:<AdminDashBoard/>
+        element:<AdminRoute><AdminDashBoard/></AdminRoute>
       },
       {
         path:'admin-issues',
-        element:<AdminAllIssues/>
+        element:<AdminRoute><AdminAllIssues/></AdminRoute>
       },
       {
         path:'manage-staff',
-        element:<ManageStaff/>
+        element:<AdminRoute><ManageStaff/></AdminRoute>
       },
       {
         path:'manage-users',
-        element:<ManageUsers/>
+        element:<AdminRoute><ManageUsers/></AdminRoute>
       },
       {
         path:'admin-profile',
-        // element:<AdminProfileUpdate/>
-        element:<AdminProfile/>
+        element:<AdminRoute><AdminProfile/></AdminRoute>
+      },
+      {
+        path:'citizen-home',
+        element:<CitizenHome/>
       }
     ]
   },
