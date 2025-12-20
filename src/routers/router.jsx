@@ -21,7 +21,8 @@ import AdminProfile from "../pages/DahsBoard/AdminProfile/AdminProfile";
 import AdminRoute from "../Private/AdminRoute/AdminRoute";
 import CitizenHome from "../pages/DahsBoard/CitizenDashBoard/CitizenHome/CitizenHome";
 import CitizenMyReport from "../pages/DahsBoard/CitizenDashBoard/CitizenMyReport/CitizenMyReport";
-import CitizenViewIssue from "../pages/DahsBoard/CitizenDashBoard/CitizenViewIssue/CitizenViewIssue";
+// import CitizenViewIssue from "../pages/DahsBoard/CitizenDashBoard/CitizenViewIssue/CitizenViewIssue";
+import ReportIssue from "../pages/DahsBoard/CitizenDashBoard/ReportIssue/ReportIssue";
 
 export const router = createBrowserRouter([
   {
@@ -91,6 +92,10 @@ export const router = createBrowserRouter([
         path:'citizen-report',
         element:<CitizenMyReport/>
       },
+      {
+        path:'citizen-report-issue',
+        element:<ReportIssue/>
+      }
       // discuss later ke citizen dashboard na ke general dashboard korvo and this citizen view issue page remove kora lagba
       // {
       //   path:'citizen-view-issue/:id',
