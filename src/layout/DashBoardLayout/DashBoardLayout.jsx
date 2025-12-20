@@ -1,7 +1,7 @@
 import { Link, NavLink, Outlet } from "react-router";
 import LogoDash from "../../components/Logo/LogoDash";
-import { MdReport } from "react-icons/md";
-import { FaUsers, FaUsersCog, FaUserShield } from "react-icons/fa";
+import {MdReport } from "react-icons/md";
+import {FaClipboardList,FaUsers, FaUsersCog, FaUserShield } from "react-icons/fa";
 import useRole from "../../hooks/useRole";
 const DashBoardLayout = () => {
 
@@ -73,12 +73,12 @@ const DashBoardLayout = () => {
 <li>
               <NavLink
                 className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="Profile"
-                to="/dashboard"
+                data-tip="My Issue"
+                to="/dashboard/citizen-report"
               >
-                <FaUserShield  size={30}/>
+                <FaClipboardList  size={30}/>
                   
-                <span className="is-drawer-close:hidden text-2xl font-medium">citizen-Route</span>
+                <span className="is-drawer-close:hidden text-2xl font-medium">My Issue</span>
               </NavLink>
             </li>
 </>)}

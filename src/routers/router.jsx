@@ -20,6 +20,7 @@ import ManageUsers from "../pages/DahsBoard/ManageUsers/ManageUsers";
 import AdminProfile from "../pages/DahsBoard/AdminProfile/AdminProfile";
 import AdminRoute from "../Private/AdminRoute/AdminRoute";
 import CitizenHome from "../pages/DahsBoard/CitizenDashBoard/CitizenHome/CitizenHome";
+import CitizenMyReport from "../pages/DahsBoard/CitizenDashBoard/CitizenMyReport/CitizenMyReport";
 
 export const router = createBrowserRouter([
   {
@@ -85,6 +86,10 @@ export const router = createBrowserRouter([
       {
         path:'citizen-home',
         element:<CitizenHome/>
+      },
+      {
+        path:'citizen-report',
+        element:<CitizenMyReport/>
       }
     ]
   },
