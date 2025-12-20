@@ -148,7 +148,7 @@ const ManageStaff = () => {
           <table className="w-full text-sm">
             <thead className="bg-gray-50 text-gray-600 uppercase text-xs">
               <tr>
-                <th className="px-6 py-4 text-left">#</th>
+                <th className="px-6 py-4 text-left">SL NO.</th>
                 <th className="px-6 py-4 text-left">Staff</th>
                 <th className="px-6 py-4">Email</th>
                 <th className="px-6 py-4 hidden lg:table-cell">Phone</th>

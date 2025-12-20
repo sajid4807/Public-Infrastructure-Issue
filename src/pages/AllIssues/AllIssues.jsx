@@ -56,10 +56,9 @@ const AllIssues = () => {
   keepPreviousData: true,
 });
 
-  if(isLoading){
-    return <Loading></Loading>
-  }
 
+
+  
 const reports = data?.result || [];
 const totalPages = Math.ceil(data?.totalReports / limit || 1);
 
@@ -94,6 +93,11 @@ const totalPages = Math.ceil(data?.totalReports / limit || 1);
     setSearchText(inputValue);
   setPage(1); 
   }
+
+  if(isLoading){
+    return <Loading></Loading>
+  }
+
 
   return (
     <div className="my-10 md:my-10">
