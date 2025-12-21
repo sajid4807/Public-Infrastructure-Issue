@@ -102,6 +102,29 @@ const CitizenHomeStat = () => {
     },
   });
 
+  const { data: userStatus = {} } = useQuery({
+    queryKey: ["userStatus"],
+    queryFn: async () => {
+      const res = await axiosSecure.get("/user/status");
+      return res.data;
+    },
+  });
+
+  const isBlocked = userStatus?.isBlocked;
+  const isPremium = userStatus?.isPremium;
+
+
+//   const { data: paymentsData = {}, } = useQuery({
+//   queryKey: ["citizen-payments", citizen._id],
+//   queryFn: async () => {
+//     if (!citizen._id) return { payments: [], totalAmount: 0 };
+//     const res = await axiosSecure.get(`/payments/citizen/${citizen._id}`);
+//     return res.data;
+//   },
+//   enabled: !!citizen._id,
+// });
+
+
   /* ----------- Stats ----------- */
   const stats = [
     {
@@ -134,6 +157,12 @@ const CitizenHomeStat = () => {
       icon: <FaTimesCircle />,
       gradient: "bg-gradient-to-r from-pink-500 to-red-600",
     },
+     {
+    title: "Total Payments",
+    // value: paymentsData.totalAmount || 0,
+    icon: <FaCheckCircle />,
+    gradient: "bg-gradient-to-r from-yellow-400 to-yellow-600",
+  },
   ];
 
   /* ----------- Chart Data ----------- */
@@ -152,11 +181,20 @@ const CitizenHomeStat = () => {
   }
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-10 my-8 md:my-10">
+      {isBlocked && (
+        <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 my-6 shadow-sm">
+          ⚠️ You are blocked by admin. Contact authorities.
+        </div>
+      )}
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-semibold text-gray-800">
-          Citizen Dashboard
+        <h1 className="text-2xl flex items-center font-bold text-gray-800">
+          Dashboard
+           {isPremium && (
+            <span className="text-xs bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full font-semibold ml-2">
+              🌟 Premium
+            </span>)}
         </h1>
         <p className="text-sm text-gray-500">
           Overview of your reported issues

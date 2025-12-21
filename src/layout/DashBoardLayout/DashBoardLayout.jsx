@@ -1,9 +1,10 @@
 import { Link, NavLink, Outlet } from "react-router";
 import LogoDash from "../../components/Logo/LogoDash";
-import { MdReport } from "react-icons/md";
+import { MdPayment, MdReport } from "react-icons/md";
 import {
   FaClipboardList,
   FaCloudUploadAlt,
+  FaUser,
   FaUsers,
   FaUsersCog,
   FaUserShield,
@@ -86,6 +87,22 @@ const DashBoardLayout = () => {
 
             {role === "citizen" && (
               <>
+              {/* profile page */}
+                <li>
+                  <NavLink
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Profile"
+                    to="/dashboard/citizen-profile"
+                  >
+                    <FaUser size={30} />
+
+                    <span className="is-drawer-close:hidden text-2xl font-medium">
+                      Profile
+                    </span>
+                  </NavLink>
+                </li>
+
+
               {/* my issue page */}
                 <li>
                   <NavLink
@@ -125,20 +142,6 @@ const DashBoardLayout = () => {
             {/* admin profile */}
             {role === "admin" && (
               <>
-                <li>
-                  <NavLink
-                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                    data-tip="Profile"
-                    to="/dashboard/admin-profile"
-                  >
-                    <FaUserShield size={30} />
-
-                    <span className="is-drawer-close:hidden text-2xl font-medium">
-                      Profile
-                    </span>
-                  </NavLink>
-                </li>
-
                 {/* all issue */}
                 <li>
                   <NavLink
@@ -180,6 +183,34 @@ const DashBoardLayout = () => {
 
                     <span className="is-drawer-close:hidden text-2xl font-medium">
                       Manage Staff
+                    </span>
+                  </NavLink>
+                </li>
+                    {/* payment related api */}
+                <li>
+                  <NavLink
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Payment"
+                    to="/dashboard/admin-payment"
+                  >
+                    <MdPayment size={30} />
+
+                    <span className="is-drawer-close:hidden text-2xl font-medium">
+                      Payment
+                    </span>
+                  </NavLink>
+                </li>
+                        {/*profile  */}
+                 <li>
+                  <NavLink
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Profile"
+                    to="/dashboard/admin-profile"
+                  >
+                    <FaUserShield size={30} />
+
+                    <span className="is-drawer-close:hidden text-2xl font-medium">
+                      Profile
                     </span>
                   </NavLink>
                 </li>

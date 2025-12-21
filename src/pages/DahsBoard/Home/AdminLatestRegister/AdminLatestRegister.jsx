@@ -2,7 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import Loading from "../../../../components/Loading/Loading";
 
-
 const AdminLatestRegister = () => {
   const axiosSecure = useAxiosSecure();
 
@@ -10,8 +9,7 @@ const AdminLatestRegister = () => {
     queryKey: ["users"],
     queryFn: async () => {
       const res = await axiosSecure.get("/users");
-      return res.data
-        .slice(0, 6);
+      return res.data.slice(0, 6);
     },
   });
 
@@ -20,9 +18,9 @@ const AdminLatestRegister = () => {
   return (
     <div className="my-10 md:my-14">
       {/* Header */}
-        <h2 className="text-2xl mb-4 md:text-3xl font-bold text-gray-800">
-          Latest Registered Users
-        </h2>
+      <h2 className="text-2xl mb-4 md:text-3xl font-bold text-gray-800">
+        Latest Registered Users
+      </h2>
       {/* Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {users.map((user) => (
@@ -52,11 +50,7 @@ const AdminLatestRegister = () => {
               <p className="text-gray-500 text-sm line-clamp-1">{user.email}</p>
               <p className="text-gray-500 text-sm">{user.phone}</p>
 
-              <div className="flex items-center justify-between mt-2">
-                {/* Role Badge */}
-                
-
-                {/* Registration Date */}
+              <div className="flex items-center justify-between">
                 <span className="text-xs text-gray-400">
                   {new Date(user.createdAt).toLocaleDateString()}
                 </span>

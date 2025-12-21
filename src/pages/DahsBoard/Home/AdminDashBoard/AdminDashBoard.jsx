@@ -1,5 +1,6 @@
 import AdminHome from "../AdminHome/AdminHome";
 import AdminLatestIssues from "../AdminLatestIssues/AdminLatestIssues";
+import AdminLatestPayment from "../AdminLatestPayment/AdminLatestPayment";
 import AdminLatestRegister from "../AdminLatestRegister/AdminLatestRegister";
 
 const AdminDashBoard = () => {
@@ -8,6 +9,7 @@ const AdminDashBoard = () => {
             <AdminHome/>
             <AdminLatestIssues/>
             <AdminLatestRegister/>
+            <AdminLatestPayment/>
         </div>
     );
 };

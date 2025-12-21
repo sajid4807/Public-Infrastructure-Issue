@@ -11,12 +11,6 @@ const ReportIssue = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
   const navigate = useNavigate();
-//   const [userStatus, setUserStatus] = useState({
-//     isBlocked: false,
-//     isPremium: false,
-//   });
-//   const [isLimitReached, setIsLimitReached] = useState(false);
-
   const {
     register,
     handleSubmit,
@@ -39,20 +33,10 @@ const ReportIssue = () => {
         const res = await axiosSecure.get('/my-reports/count')
         return res.data;
     },
-    // {enabled: !!userStatus}
   })
 
-//   const { data: issueCountData = { count: 0 } } = useQuery({
-//     queryKey:['my-issue-count'],
-//     queryFn:async ()=>{
-//       if (userStatus.isPremium) return { count: 0 }
-//         const res = await axiosSecure.get('/my-report')
-//         return res.data;
-//     },
-//     // {enabled: !!userStatus}
 
-//   )}
-
+  const isBlocked = userStatus?.isBlocked;
     const isLimitReached = !userStatus?.isPremium && issueCountData.count >= 3;
 
   const handleIssueSubmit = (data) => {
@@ -108,7 +92,12 @@ const ReportIssue = () => {
 
   return (
     <div className="max-w-2xl mx-auto my-10 md:my-16 p-6 bg-base-100 rounded-xl shadow-2xl">
-      <h1 className="text-3xl font-bold mb-4 text-center">
+        {isBlocked && (
+        <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 shadow-sm">
+          ⚠️ You are blocked by admin. Contact authorities.
+        </div>
+      )}
+      <h1 className="text-xl md:text-3xl font-bold mb-4 text-center">
         Report Public Issue
       </h1>
 
@@ -189,7 +178,7 @@ const ReportIssue = () => {
             <button disabled className="btn w-full opacity-80 cursor-not-allowed">
               Issue Limit Reached
             </button>
-            <button onClick={() => navigate("/profile")} className="btn btn-warning text-black w-full">
+            <button onClick={() => navigate("/dashboard/citizen-profile")} className="btn btn-warning text-black w-full">
               Upgrade to Premium
             </button>
           </div>

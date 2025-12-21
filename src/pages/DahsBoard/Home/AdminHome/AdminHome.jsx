@@ -8,6 +8,7 @@ import {
   FaCheckCircle,
   FaTimesCircle,
   FaClipboardList,
+  FaMoneyBillWave,
 } from "react-icons/fa";
 
 import {
@@ -85,6 +86,15 @@ const AdminHome = () => {
     },
   });
 
+
+  const { data: paymentData = {} } = useQuery({
+  queryKey: ["total-payment"],
+  queryFn: async () => {
+    const res = await axiosSecure.get("/admin/total-payment");
+    return res.data;
+  },
+});
+
   if (isLoading) return <Loading />;
 
   /* ================= CHART DATA ================= */
@@ -110,7 +120,7 @@ const AdminHome = () => {
       </div>
 
       {/* ================= STATS CARDS ================= */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-6">
         <StatCard
           title="Total Issues"
           value={stats.totalIssues}
@@ -138,7 +148,16 @@ const AdminHome = () => {
           icon={FaTimesCircle}
           gradient="bg-gradient-to-br from-rose-500 to-red-600"
         />
+        <StatCard
+  title="Total Payment"
+  value={paymentData.totalPaymentAmount || 0}
+  icon={FaMoneyBillWave}
+  gradient="bg-gradient-to-br from-cyan-500 to-blue-600"
+/>
       </div>
+
+      
+
 
       {/* ================= CHARTS ================= */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

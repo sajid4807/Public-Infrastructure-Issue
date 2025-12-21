@@ -3,7 +3,7 @@ import { useRef, useState } from "react";
 import { Link } from "react-router";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
-import { FiEdit, FiEye, FiFileText, FiTrash2 } from "react-icons/fi";
+import { FiEdit, FiEye, FiTrash2 } from "react-icons/fi";
 import { useForm } from "react-hook-form";
 import Loading from "../../../../components/Loading/Loading";
 
@@ -21,7 +21,6 @@ const CitizenMyReport = () => {
   const {
     register,
     reset,
-    formState: { errors },
     handleSubmit,
   } = useForm();
 
@@ -126,11 +125,14 @@ const CitizenMyReport = () => {
         </div>
       )}
       {/* ---------------- HEADER ---------------- */}
+
+
+
       <div className="mb-6">
-        <h1 className="text-3xl font-bold text-gray-800 flex items-center gap-2">
+        <h1 className="text-2xl flex items-center font-bold text-gray-800  gap-2">
           My Issues
           {isPremium && (
-            <span className="text-xs bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full font-semibold ml-2">
+            <span className="text-xs bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full font-semibold">
               🌟 Premium
             </span>
           )}
@@ -169,6 +171,7 @@ const CitizenMyReport = () => {
           </select>
         </div>
       </div>
+      
 
       {/* ---------------- ISSUE LIST ---------------- */}
       <div className="hidden lg:block border rounded-2xl overflow-x-auto">
@@ -224,14 +227,14 @@ const CitizenMyReport = () => {
                   <button
                     disabled={isBlocked || issue.status !== "pending"}
                     onClick={() => handleEditModalOpen(issue)}
-                    className="btn btn-sm bg-blue-500 hover:bg-blue-600 text-white disabled:opacity-50"
+                    className="btn btn-sm bg-blue-500 hover:bg-blue-600 text-white disabled:opacity-20"
                   >
                     <FiEdit />
                   </button>
                   <button
-                    disabled={isBlocked}
+                    disabled={isBlocked || issue.status !== 'pending'}
                     onClick={() => handleIssueDelete(issue._id)}
-                    className="btn btn-sm bg-red-500 hover:bg-red-600 text-white disabled:opacity-50"
+                    className="btn btn-sm bg-red-500 hover:bg-red-600 text-white disabled:opacity-20"
                   >
                     <FiTrash2 />
                   </button>
@@ -295,12 +298,6 @@ const CitizenMyReport = () => {
         ))}
       </div>
       {/* Open the modal using document.getElementById('ID').showModal() method */}
-      <button
-        className="btn"
-        onClick={() => document.getElementById("my_modal_5").showModal()}
-      >
-        open modal
-      </button>
       <dialog
         ref={editModalOpen}
         className="modal modal-bottom sm:modal-middle"

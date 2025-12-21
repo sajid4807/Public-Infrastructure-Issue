@@ -35,9 +35,9 @@ const ReportDetails = () => {
 
   useEffect(() => {
     if (sessionId) {
-      axiosSecure.post("/confirm-boost", { sessionId })
+      axiosSecure.patch("/confirm-boost", { sessionId })
     }
-  }, [sessionId,axiosSecure,refetch]);
+  }, [sessionId,axiosSecure]);
 
 
   const handleReportDelete =()=>{
@@ -81,9 +81,11 @@ const ReportDetails = () => {
     const paymentInfo = {
       reportId: issue._id,
       email: issue.email,
+      displayName:user.displayName,
+      photoURL:user.photoURL
     };
 
-    const res = await axiosSecure.post('create-checkout-session', paymentInfo);
+    const res = await axiosSecure.post('/create-checkout-session', paymentInfo);
 
     if (res?.data?.url) {
       // Redirect to checkout page

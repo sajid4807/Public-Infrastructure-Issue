@@ -20,9 +20,9 @@ const AdminLatestIssues = () => {
   return (
     <div className="">
       {/* Header */}
-        <h2 className="text-2xl mb-4 md:text-3xl font-bold text-gray-800">
-          Latest Issues
-        </h2>
+      <h2 className="text-2xl mb-4 md:text-3xl font-bold text-gray-800">
+        Latest Issues
+      </h2>
       {/* Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {latest.map((issue) => (
@@ -44,14 +44,22 @@ const AdminLatestIssues = () => {
               <h2 className="card-title capitalize">
                 {issue.title}
                 <div className="badge-dot capitalize">{issue.status}</div>
-                <div className={`badge badge-outline capitalize ${issue.priority === 'high'?"bg-red-500": "bg-green-600" } text-white capitalize p-4`}>{issue.priority}</div>
+                <div
+                  className={`badge badge-outline capitalize ${
+                    issue.priority === "high" ? "bg-red-500" : "bg-green-600"
+                  } text-white capitalize p-4`}
+                >
+                  {issue.priority}
+                </div>
               </h2>
               <div className="">
                 <span className="text-sm font-semibold text-gray-500">
                   Category: {issue.category}
                 </span>
               </div>
-              <p className="text-sm text-gray-500">Location: {issue.location}</p>
+              <p className="text-sm text-gray-500">
+                Location: {issue.location}
+              </p>
             </div>
           </div>
         ))}
