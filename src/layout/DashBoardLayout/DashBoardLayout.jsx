@@ -62,9 +62,9 @@ const DashBoardLayout = () => {
           </Link>
         </nav>
         {/* Page content here */}
-        <div className="px-4 md:px-5">
+        {/* <div className="px-4 md:px-5"> */}
           <Outlet />
-        </div>
+        {/* </div> */}
       </div>
 
       <div className="drawer-side is-drawer-close:overflow-visible">

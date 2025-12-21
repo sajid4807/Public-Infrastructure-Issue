@@ -149,7 +149,7 @@ const AdminHome = () => {
           gradient="bg-gradient-to-br from-rose-500 to-red-600"
         />
         <StatCard
-  title="Total Payment"
+  title="Total Payment (৳)"
   value={paymentData.totalPaymentAmount || 0}
   icon={FaMoneyBillWave}
   gradient="bg-gradient-to-br from-cyan-500 to-blue-600"
