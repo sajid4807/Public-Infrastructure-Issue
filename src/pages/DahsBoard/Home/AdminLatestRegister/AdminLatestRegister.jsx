@@ -25,8 +25,6 @@ const AdminLatestRegister = () => {
   };
 
   return (
-    //  className="mx-auto max-w-7xl space-y-8 px-4 sm:px-6 lg:px-8"
-    // className="my-10 md:my-14"
     <div className="bg-gradient-to-br from-indigo-50 via-blue-50 to-indigo-50 pb-10 md:pb-14">
        <div className="mx-auto max-w-7xl space-y-8 px-4 sm:px-6 lg:px-8">
       {/* Header */}

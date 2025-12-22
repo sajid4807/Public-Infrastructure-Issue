@@ -52,7 +52,6 @@ const Edit = () => {
         );
         })
         .catch((err) => {
-                    // const message = err.message;
                     Swal.fire({
       icon: 'error',
       title: 'Error',

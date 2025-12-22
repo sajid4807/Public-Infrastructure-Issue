@@ -6,30 +6,25 @@ import Login from "../pages/Auth/Login/Login";
 import Register from "../pages/Auth/Register/Register";
 import NotFound from "../components/NotFound/NotFound";
 import PrivateRoute from "../Private/PrivateRoute/PrivateRoute";
-import Report from "../pages/Report/Report";
-import DashBoardLayout from "../layout/DashBoardLayout/DashBoardLayout";
-// import MyReports from "../pages/DahsBoard/MyReports/MyReports";
 import ReportDetails from "../components/ReportDetails/ReportDetails";
 import Edit from "../components/Edit/Edit";
-// import AdminHome from "../pages/DahsBoard/Home/AdminHome/AdminHome";
 import AdminAllIssues from "../pages/DahsBoard/AdminAllIssues/AdminAllIssues";
 import ManageStaff from "../pages/DahsBoard/ManageStaff/ManageStaff";
 import AdminDashBoard from "../pages/DahsBoard/Home/AdminDashBoard/AdminDashBoard";
 import ManageUsers from "../pages/DahsBoard/ManageUsers/ManageUsers";
-// import AdminProfileUpdate from "../pages/DahsBoard/AdminProfile/AdminProfile";
 import AdminProfile from "../pages/DahsBoard/AdminProfile/AdminProfile";
 import AdminRoute from "../Private/AdminRoute/AdminRoute";
 import CitizenHome from "../pages/DahsBoard/CitizenDashBoard/CitizenHome/CitizenHome";
 import CitizenMyReport from "../pages/DahsBoard/CitizenDashBoard/CitizenMyReport/CitizenMyReport";
-// import CitizenViewIssue from "../pages/DahsBoard/CitizenDashBoard/CitizenViewIssue/CitizenViewIssue";
 import ReportIssue from "../pages/DahsBoard/CitizenDashBoard/ReportIssue/ReportIssue";
 import CitizenProfile from "../pages/DahsBoard/CitizenDashBoard/CitizenProfile/CitizenProfile";
 import Payment from "../pages/DahsBoard/Payment/Payment";
 import CitizenRoute from "../Private/CitizenRoute/CitizenRoute";
 import StaffRoute from "../Private/StaffRoute/StaffRoute";
 import StaffHome from "../pages/DahsBoard/StaffDashBoard/StaffHome/StaffHome";
-import StaffAssignedIssues from "../pages/DahsBoard/StaffDashBoard/StaffAssignedIssues/StaffAssignedIssues";
+import StaffAssignedIssues from "../pages/DahsBoard/StaffDashBoard/StaffAssignedWork/StaffAssignedIssues";
 import StaffProfile from "../pages/DahsBoard/StaffDashBoard/StaffProfile/StaffProfile";
+import DashBoardLayout from "../layout/DashBoardLayout/DashBoardLayout";
 
 export const router = createBrowserRouter([
   {
@@ -56,10 +51,6 @@ export const router = createBrowserRouter([
       {
         path:'view-details/:id',
         element:<PrivateRoute><ReportDetails></ReportDetails></PrivateRoute>
-      },
-      {
-        path:'report',
-        element:<PrivateRoute><Report/></PrivateRoute>
       },
       {
         path:'edit/:id',

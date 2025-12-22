@@ -17,7 +17,6 @@ const ManageStaff = () => {
 
   const { register, handleSubmit, reset } = useForm();
 
-  // Check if mobile
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
@@ -133,7 +132,6 @@ const ManageStaff = () => {
     return <Loading />;
   }
 
-  // Filter staffs based on search
   const filteredStaffs = staffs.filter(staff => 
     staff.displayName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
     staff.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||

@@ -26,7 +26,6 @@ const AdminProfile = () => {
 
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
-  // Detect mobile screen
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
@@ -34,7 +33,6 @@ const AdminProfile = () => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Fetch admin data
   const { data: admin, isLoading, refetch } = useQuery({
     queryKey: ["admin-profile"],
     queryFn: async () => {
@@ -43,7 +41,6 @@ const AdminProfile = () => {
     },
   });
 
-  // Open update modal safely
   const openUpdateModal = (adminData) => {
     setSelectedAdmin(adminData);
     reset({
@@ -56,7 +53,6 @@ const AdminProfile = () => {
     }
   };
 
-  // Update profile handler
   const handleUpdateProfile = async (data) => {
     try {
       let photoURL = selectedAdmin?.photoURL || "";

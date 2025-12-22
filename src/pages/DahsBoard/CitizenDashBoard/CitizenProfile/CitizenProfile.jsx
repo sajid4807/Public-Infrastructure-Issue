@@ -109,40 +109,44 @@ const CitizenProfile = () => {
     }
   };
 
-  const handleSubscribe = async () => {
-    try {
-      const subscribeInfo = {
-        citizenId: citizen._id,
-        email: citizen.email,
-        displayName: user.displayName,
-        photoURL: user.photoURL,
-      };
-      const res = await axiosSecure.post(
-        "/create-checkout-subscribe",
-        subscribeInfo
-      );
+ const handleSubscribe = async () => {
+  try {
+    // Backend expects citizenId, not reportId
+    const subscribeInfo = {
+      citizenId: citizen._id,  
+      email: citizen.email,
+      displayName: user.displayName,
+      photoURL: user.photoURL,
+    };
 
-      if (res?.data?.url) {
-        window.location.href = res.data.url;
-      } else {
-        Swal.fire({
-          icon: "error",
-          title: "Payment Error",
-          text: "Failed to create checkout session. Please try again.",
-        });
-      }
-      refetch();
-    } catch (error) {
+    const res = await axiosSecure.post(
+      "/create-checkout-subscribe",
+      subscribeInfo
+    );
+
+    if (res?.data?.url) {
+      // Redirect to Stripe checkout
+      window.location.href = res.data.url;
+    } else {
       Swal.fire({
         icon: "error",
-        title: "Error",
-        text:
-          error.response?.data?.message ||
-          error.message ||
-          "Something went wrong!",
+        title: "Payment Error",
+        text: "Failed to create checkout session. Please try again.",
       });
     }
-  };
+    refetch();
+  } catch (error) {
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text:
+        error.response?.data?.message ||
+        error.message ||
+        "Something went wrong!",
+    });
+  }
+};
+
 
   if (isLoading) return <Loading />;
 

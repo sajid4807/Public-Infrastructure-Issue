@@ -1,3 +1,4 @@
+import Forbidden from "../../components/Forbidden/Forbidden";
 import Loading from "../../components/Loading/Loading";
 import useAuth from "../../hooks/useAuth";
 import useRole from "../../hooks/useRole";
@@ -10,11 +11,7 @@ const StaffRoute = ({ children }) => {
     return <Loading />;
   }
   if (role !== "staff") {
-    return (
-      <div className="flex justify-center items-center">
-        <p>Forbidden access</p>
-      </div>
-    );
+    return <Forbidden/>
   }
   return children;
 };

@@ -12,11 +12,9 @@ const StaffAssignedIssues = () => {
   const queryClient = useQueryClient();
   const [statusChanging, setStatusChanging] = useState(null);
 
-  // 🔹 Filter states
   const [statusFilter, setStatusFilter] = useState("");
   const [priorityFilter, setPriorityFilter] = useState("");
 
-  // 🔹 Fetch assigned issues with filters
   const { data: issues = [], isLoading } = useQuery({
     queryKey: ["staffIssues", user?.email, statusFilter, priorityFilter],
     enabled: !!user?.email,
@@ -29,7 +27,6 @@ const StaffAssignedIssues = () => {
     },
   });
 
-  // 🔹 Status flow rules
   const statusOptions = {
     pending: ["in-progress"],
     "in-progress": ["working"],
@@ -37,7 +34,6 @@ const StaffAssignedIssues = () => {
     resolved: ["closed"],
   };
 
-  // 🔹 Change status handler
   const handleChangeStatus = async (issueId, newStatus) => {
     setStatusChanging(issueId);
     try {
@@ -47,7 +43,6 @@ const StaffAssignedIssues = () => {
         staffName: user.displayName,
       });
 
-      // Optimistic UI update
       queryClient.setQueryData(["staffIssues", user.email, statusFilter, priorityFilter], (oldData) => {
         if (!oldData) return [];
         return oldData.map((issue) =>
@@ -72,8 +67,7 @@ const StaffAssignedIssues = () => {
 
       Swal.fire("Success!", "Status updated successfully", "success");
     } catch (error) {
-      console.error(error);
-      Swal.fire("Error", "Failed to update status", "error");
+      Swal.fire("Error", "Failed to update status", error);
     } finally {
       setStatusChanging(null);
     }

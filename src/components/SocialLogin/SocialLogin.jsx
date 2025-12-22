@@ -15,16 +15,13 @@ const SocialLogin = () => {
         singInGoogle()
         .then((res) => {
 
-          console.log(res.user)
                 const userInfo ={
             email:res.user.email,
             displayName:res.user.displayName,
             photoURL:res.user.photoURL,
-            // role:res.user.role
           }
           axiosSecure.post('/users',userInfo)
-          .then(res => {
-            console.log('user data has been stored', res.data)
+          .then(() => {
              Swal.fire({
               position: "top-end",
               icon: "success",
@@ -34,17 +31,8 @@ const SocialLogin = () => {
             });
             navigate(location.state || '/')
           })
-            // navigate(location.state || '/')
-            // Swal.fire({
-            //   position: "top-end",
-            //   icon: "success",
-            //   title: "Successfully Google Login Public Infrastructure Issue",
-            //   showConfirmButton: false,
-            //   timer: 1500
-            // });
         })
         .catch((err) => {
-                // console.log(err.message);
                 const error =err.message
                 Swal.fire({
           position: "top-end",

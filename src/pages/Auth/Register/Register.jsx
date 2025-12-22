@@ -39,6 +39,7 @@ const Register = () => {
             photoURL:photoURL,
             phone:data.phone
           }
+          console.log(userInfo)
           axiosSecure.post('/users',userInfo)
           .then(res => {
             if(res.data.insertedId){
@@ -62,7 +63,6 @@ const Register = () => {
                     navigate(location.state || '/')
                     window.location.reload();
               })
-              // when i delete before check
               .catch((error) => {
                const message = error.message
                        Swal.fire({
@@ -83,7 +83,7 @@ const Register = () => {
                             title: message,
                             showConfirmButton: false,
                             timer: 2000,
-                          }); console.log(error.message);
+                          });
       });
   };
 

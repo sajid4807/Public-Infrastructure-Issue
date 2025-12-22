@@ -11,7 +11,6 @@ const Payment = () => {
   const [isMobile, setIsMobile] = useState(false);
   const limit = 10;
 
-  // Check if mobile
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 640);
@@ -21,7 +20,6 @@ const Payment = () => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Fetch paginated payments from backend with category filter
   const { data: paymentsData = {}, isLoading } = useQuery({
     queryKey: ["allPayments", page, filterCategory],
     queryFn: async () => {
@@ -39,7 +37,6 @@ const Payment = () => {
 
   const { payments = [], total = 0, totalPages = 1 } = paymentsData;
 
-  // Summary stats
   const boostCount = payments.filter((p) => p.Category === "boost").length;
   const subCount = payments.filter((p) => p.Category === "subscription").length;
   const totalAmount = payments.reduce((sum, p) => sum + (p.amount || 0), 0);

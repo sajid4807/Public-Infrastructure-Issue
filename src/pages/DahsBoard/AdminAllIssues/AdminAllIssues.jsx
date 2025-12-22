@@ -23,7 +23,6 @@ const AdminAllIssues = () => {
   const limit = 10;
   const assignModalRef = useRef();
 
-  // Check if mobile
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 1024);
@@ -33,7 +32,6 @@ const AdminAllIssues = () => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Fetch issues with pagination
   const { data: issuesData = {}, refetch } = useQuery({
     queryKey: ["issues", page],
     queryFn: async () => {
@@ -46,7 +44,6 @@ const AdminAllIssues = () => {
   const { issues = [], total = 0 } = issuesData;
   const totalPages = Math.ceil(total / limit);
 
-  // Fetch staff when modal opens
   const { data: staffs = [] } = useQuery({
     queryKey: ["staff"],
     enabled: !!selectedIssue,
@@ -108,7 +105,6 @@ const AdminAllIssues = () => {
     refetch();
   };
 
-  // Stats
   const pendingCount = issues.filter(i => i.status === "pending").length;
   const assignedCount = issues.filter(i => i.staffId).length;
   const highPriorityCount = issues.filter(i => i.priority === "high").length;
