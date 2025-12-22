@@ -25,6 +25,11 @@ import CitizenMyReport from "../pages/DahsBoard/CitizenDashBoard/CitizenMyReport
 import ReportIssue from "../pages/DahsBoard/CitizenDashBoard/ReportIssue/ReportIssue";
 import CitizenProfile from "../pages/DahsBoard/CitizenDashBoard/CitizenProfile/CitizenProfile";
 import Payment from "../pages/DahsBoard/Payment/Payment";
+import CitizenRoute from "../Private/CitizenRoute/CitizenRoute";
+import StaffRoute from "../Private/StaffRoute/StaffRoute";
+import StaffHome from "../pages/DahsBoard/StaffDashBoard/StaffHome/StaffHome";
+import StaffAssignedIssues from "../pages/DahsBoard/StaffDashBoard/StaffAssignedIssues/StaffAssignedIssues";
+import StaffProfile from "../pages/DahsBoard/StaffDashBoard/StaffProfile/StaffProfile";
 
 export const router = createBrowserRouter([
   {
@@ -92,25 +97,32 @@ export const router = createBrowserRouter([
       },
       {
         path:'citizen-home',
-        element:<CitizenHome/>
+        element:<CitizenRoute><CitizenHome/></CitizenRoute>
       },
       {
         path:'citizen-report',
-        element:<CitizenMyReport/>
+        element:<CitizenRoute><CitizenMyReport/></CitizenRoute>
       },
       {
         path:'citizen-report-issue',
-        element:<ReportIssue/>
+        element:<CitizenRoute><ReportIssue/></CitizenRoute>
       },
       {
         path:'citizen-profile',
-        element:<CitizenProfile/>
+        element:<CitizenRoute><CitizenProfile/></CitizenRoute>
+      },
+      {
+        path:'staff-home',
+        element:<StaffRoute><StaffHome/></StaffRoute>
+      },
+      {
+        path:'assigned-issues',
+        element:<StaffRoute><StaffAssignedIssues/></StaffRoute>
+      },
+      {
+        path:'staff-profile',
+        element:<StaffRoute><StaffProfile/></StaffRoute>
       }
-      // discuss later ke citizen dashboard na ke general dashboard korvo and this citizen view issue page remove kora lagba
-      // {
-      //   path:'citizen-view-issue/:id',
-      //   element:<CitizenViewIssue/>
-      // }
     ]
   },
 ]);
