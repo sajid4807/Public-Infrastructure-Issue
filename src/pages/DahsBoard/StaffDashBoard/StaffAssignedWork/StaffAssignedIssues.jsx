@@ -166,7 +166,7 @@ const StaffAssignedIssues = () => {
               <thead className="bg-gradient-to-r from-indigo-600 to-purple-600">
                 <tr>
                   <th className="px-6 py-5 text-left text-xs font-black uppercase tracking-wider text-white">
-                    #
+                    SL
                   </th>
                   <th className="px-6 py-5 text-left text-xs font-black uppercase tracking-wider text-white">
                     Title

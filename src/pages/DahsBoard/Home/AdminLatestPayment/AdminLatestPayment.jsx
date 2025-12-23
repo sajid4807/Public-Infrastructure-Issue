@@ -108,9 +108,9 @@ const AdminLatestPayment = () => {
                       : "bg-gradient-to-r from-yellow-100 to-amber-100 text-amber-700 border border-amber-200"
                   }`}>
                     <span className="text-base">
-                      {payment.type === "boost" ? "🚀" : "🌟"}
+                      {payment.Category === "boost" ? "🚀" : "🌟"}
                     </span>
-                    {payment.type === "boost" ? "Issue Boost" : "Premium Subscription"}
+                    {payment.Category === "boost" ? "Issue Boost" : "Premium Subscription"}
                   </div>
                 </div>
 

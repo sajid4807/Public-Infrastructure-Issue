@@ -71,7 +71,7 @@ const Payment = () => {
                 </div>
               </div>
               <p className="text-emerald-100 text-sm font-medium mb-1">Total Revenue</p>
-              <p className="text-3xl font-bold mb-1">৳{totalAmount.toLocaleString()}</p>
+              <p className="text-3xl font-bold mb-1">{totalAmount.toLocaleString()}</p>
               <p className="text-emerald-100 text-xs">From all transactions</p>
             </div>
           </div>
@@ -224,7 +224,7 @@ const Payment = () => {
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="flex flex-col">
                             <span className="text-lg font-bold text-gray-900">
-                              ৳{payment.amount?.toLocaleString() || 0}
+                              {payment.amount?.toLocaleString() || 0}
                             </span>
                             <span className="text-xs text-gray-500 uppercase">{payment.currency}</span>
                           </div>

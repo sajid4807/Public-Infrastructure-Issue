@@ -39,7 +39,6 @@ const Register = () => {
             photoURL:photoURL,
             phone:data.phone
           }
-          console.log(userInfo)
           axiosSecure.post('/users',userInfo)
           .then(res => {
             if(res.data.insertedId){

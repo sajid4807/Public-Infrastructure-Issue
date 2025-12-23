@@ -64,7 +64,7 @@ const Edit = () => {
     return (
          <div className="max-w-2xl mx-auto my-10 md:my-16 p-6 bg-base-100 rounded-xl shadow-2xl">
       <h1 className="text-3xl font-bold mb-4 text-center">
-        Report Public Issue
+        Edit Issue
       </h1>
 
       <form onSubmit={handleSubmit(handleReportEdit)} className="space-y-4">
@@ -137,7 +137,7 @@ const Edit = () => {
           <p className="text-red-500"> Description is required</p>
         )}
         <button className="btn w-full text-2xl btn-glow text-white">
-          Report submit
+          Edit submit
         </button>
       </form>
     </div>

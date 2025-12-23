@@ -18,24 +18,25 @@ const Banner = () => {
 
   return (
     <Swiper
-      slidesPerView={1}
-      centeredSlides={true}
-      loop={true}
-      autoplay={{
-        delay: 2000,
-        disableOnInteraction: false,
-      }}
-      spaceBetween={30}
-      modules={[Autoplay, Pagination, Navigation]}
-      pagination={{ clickable: true }}
-      navigation
-      className="w-full rounded-2xl mt-8 md:mt-16"
-    >
+  slidesPerView={1}
+  centeredSlides={true}
+  loop={issues.length > 1}
+  autoplay={
+    issues.length > 1
+      ? { delay: 2000, disableOnInteraction: false }
+      : false
+  }
+  spaceBetween={30}
+  modules={[Autoplay, Pagination, Navigation]}
+  pagination={{ clickable: true }}
+  navigation={issues.length > 1}
+>
+
       {issues.map((issue) => (
         <SwiperSlide key={issue._id}>
           <img
             src={issue.imageURL}
-            className="w-full h-[200px] md:h-[550px] object-cover"
+            className="w-full h-[200px] mt-8 md:mt-16 md:h-[550px] object-cover"
             alt={issue.title || 'Banner Image'}
           />
         </SwiperSlide>

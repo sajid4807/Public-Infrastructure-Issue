@@ -264,7 +264,6 @@ const DashBoardLayout = () => {
                     to="/dashboard/assigned-issues"
                   >
                     <HiCollection size={30} />
-
                     <span className="is-drawer-close:hidden text-2xl font-medium">
                       Assigned Issues
                     </span>
@@ -290,8 +289,7 @@ const DashBoardLayout = () => {
           <li>
                   <button
                     className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                    data-tip="My Profile"
-                    // to="/dashboard/staff-profile"
+                    data-tip="Log out"
                     onClick={handleLogout}
                   >
                     <TbLogout size={30} />

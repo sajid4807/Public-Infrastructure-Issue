@@ -129,7 +129,7 @@ const AdminHome = () => {
   /* ================= CHART DATA ================= */
   const chartData = [
     { name: "Pending", value: stats.pending || 0 },
-    { name: "Resolved", value: stats.resolved || 0 },
+    { name: "Resolved", value: stats.closed || 0 },
     { name: "Rejected", value: stats.rejected || 0 },
   ];
 

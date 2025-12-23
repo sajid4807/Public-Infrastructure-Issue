@@ -166,7 +166,7 @@ const CitizenHomeStat = () => {
   const statusData = [
     { name: "Pending", value: citizen.pending || 0 },
     { name: "In Progress", value: citizen.inProgress || 0 },
-    { name: "Resolved", value: citizen.resolved || 0 },
+    { name: "Resolved", value: citizen.closed || 0 },
     { name: "Rejected", value: citizen.rejected || 0 },
   ];
 

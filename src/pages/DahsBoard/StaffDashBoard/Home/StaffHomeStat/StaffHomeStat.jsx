@@ -1,4 +1,4 @@
-import { FaTasks, FaClock, FaCheckCircle, FaTimesCircle } from "react-icons/fa";
+import { FaTasks, FaClock, FaCheckCircle, FaTimesCircle, FaCog } from "react-icons/fa";
 import { useState } from "react";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../../../hooks/useAxiosSecure";
@@ -16,7 +16,7 @@ import {
 } from "recharts";
 import Loading from "../../../../../components/Loading/Loading";
 
-const StaffDashboard = () => {
+const StaffHomeStat = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
   const queryClient = useQueryClient();
@@ -31,61 +31,69 @@ const StaffDashboard = () => {
     }
   });
 
-  const { data: issues = [] } = useQuery({
-    queryKey: ["staffAssignedIssues", user?.email],
+  const { data: issues = [],refetch } = useQuery({
+    queryKey: ["staffIssues", user?.email],
     enabled: !!user?.email,
     queryFn: async () => {
-      const res = await axiosSecure.get("/staff/assigned-issues");
+      let url = `/staff/issues?staffEmail=${user.email}`;
+      const res = await axiosSecure.get(url);
       return res.data;
-    }
+    },
   });
 
   const statusOptions = {
-    pending: ["in-progress"],
-    "in-progress": ["working"],
-    working: ["resolved"],
-    resolved: ["closed"],
-  };
+      pending: ["in-progress"],
+      "in-progress": ["working"],
+      working: ["resolved"],
+      resolved: ["closed"],
+    };
+  
+    const handleChangeStatus = async (issueId, newStatus) => {
 
-  const handleChangeStatus = async (issueId, newStatus) => {
-    if (!newStatus) return;
+  setStatusChanging(issueId);
 
-    setStatusChanging(issueId);
-    try {
-      await axiosSecure.patch(`/staff/issues/status/${issueId}`, {
-        newStatus,
-        staffEmail: user.email,
-        staffName: user.displayName
-      });
+  const previousIssues = queryClient.getQueryData([
+    "staffIssues",
+    user.email,
+  ]);
 
-      queryClient.setQueryData(["staffAssignedIssues", user?.email], oldData =>
-        oldData.map(issue =>
-          issue._id === issueId
-            ? {
-                ...issue,
-                status: newStatus,
-                timeline: [
-                  ...(issue.timeline || []),
-                  {
-                    action: "Status Changed",
-                    to: newStatus,
-                    changedBy: user.email,
-                    staffName: user.displayName,
-                    date: new Date().toISOString()
-                  }
-                ]
-              }
-            : issue
-        )
-      );
+  queryClient.setQueryData(
+    ["staffIssues", user.email],
+    (oldData = []) =>
+      oldData.map((issue) =>
+        issue._id === issueId
+          ? {
+              ...issue,
+              status: newStatus, 
+            }
+          : issue
+      )
+  );
 
-      Swal.fire("Success!", "Status updated successfully", "success");
-    } catch (err) {
-      Swal.fire("Error", "Failed to update status", err);
-    } finally {
-      setStatusChanging(null);
-    }
-  };
+  try {
+    await axiosSecure.patch(`/staff/issues/status/${issueId}`, {
+      newStatus,
+      staffEmail: user.email,
+      staffName: user.displayName,
+    });
+              refetch()
+
+    Swal.fire("Success!", "Status updated successfully", "success");
+
+  } catch (error) {
+
+    queryClient.setQueryData(
+      ["staffIssues", user.email],
+      previousIssues
+    );
+
+    Swal.fire("Error", "Failed to update status", "error");
+
+  } finally {
+    setStatusChanging(null);
+  }
+};
+
 
   if (isLoading) return <Loading />;
 
@@ -98,7 +106,7 @@ const StaffDashboard = () => {
     {
       icon: FaTasks,
       label: "Total Assigned",
-      value: stats.totalAssigned || 0,
+      value: stats.totalIssues || 0,
       gradient: "from-blue-500 to-cyan-500",
       bgColor: "blue"
     },
@@ -117,6 +125,13 @@ const StaffDashboard = () => {
       bgColor: "indigo"
     },
     {
+      icon: FaCog,
+      label: "Working",
+      value: stats.working || 0,
+      gradient: "from-green-500 to-emerald-500",
+      bgColor: "green"
+    },
+      {
       icon: FaCheckCircle,
       label: "Resolved",
       value: stats.resolved || 0,
@@ -130,13 +145,6 @@ const StaffDashboard = () => {
       gradient: "from-gray-500 to-slate-500",
       bgColor: "gray"
     },
-    {
-      icon: FaTimesCircle,
-      label: "Rejected",
-      value: stats.rejected || 0,
-      gradient: "from-red-500 to-pink-500",
-      bgColor: "red"
-    }
   ];
 
   const statusColors = {
@@ -246,23 +254,51 @@ const StaffDashboard = () => {
         </div>
 
         {/* Today's Tasks */}
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-cyan-600 via-blue-600 to-purple-600 p-6 md:p-8 shadow-2xl">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
-          
-          <div className="relative z-10 flex items-center justify-between">
-            <div>
-              <h2 className="text-2xl font-bold text-white mb-2">Today's Tasks</h2>
-              <p className="text-cyan-100 text-lg">
-                <span className="text-4xl font-black text-white">{stats.todaysTasks || 0}</span> issues assigned today
-              </p>
-            </div>
-            <div className="hidden md:block">
-              <div className="p-4 bg-white/20 backdrop-blur-sm rounded-2xl">
-                <FaTasks className="text-5xl text-white" />
-              </div>
-            </div>
-          </div>
-        </div>
+{stats.todaysTasks && stats.todaysTasks.length > 0 && (
+  <div className="overflow-hidden rounded-3xl bg-slate-800/50 backdrop-blur-xl border border-slate-700/50 shadow-2xl mt-8">
+    <div className="p-6 border-b border-slate-700">
+      <h2 className="text-2xl font-bold text-white">Today's Tasks</h2>
+      <p className="text-slate-400 text-sm mt-1">Focus on today's priorities</p>
+    </div>
+
+    <div className="overflow-x-auto">
+      <table className="w-full">
+        <thead className="bg-slate-900/50">
+          <tr>
+            <th className="px-6 py-4 text-left text-xs font-semibold text-slate-300 uppercase tracking-wider">SL</th>
+            <th className="px-6 py-4 text-left text-xs font-semibold text-slate-300 uppercase tracking-wider">Title</th>
+            <th className="px-6 py-4 text-left text-xs font-semibold text-slate-300 uppercase tracking-wider">Status</th>
+            <th className="px-6 py-4 text-left text-xs font-semibold text-slate-300 uppercase tracking-wider">Priority</th>
+            <th className="px-6 py-4 text-left text-xs font-semibold text-slate-300 uppercase tracking-wider">Category</th>
+            <th className="px-6 py-4 text-left text-xs font-semibold text-slate-300 uppercase tracking-wider">Location</th>
+          </tr>
+        </thead>
+        <tbody className="divide-y divide-slate-700/50">
+          {stats.todaysTasks.map((issue, idx) => (
+            <tr key={issue._id} className="hover:bg-slate-700/30 transition-colors">
+              <td className="px-6 py-4 text-slate-300">{idx + 1}</td>
+              <td className="px-6 py-4 text-white font-medium max-w-xs truncate">{issue.title}</td>
+              <td className="px-6 py-4">
+                <span className={`px-3 py-1 rounded-full text-xs font-bold ${statusColors[issue.status] || statusColors.pending}`}>
+                  {issue.status.replace("-", " ")}
+                </span>
+              </td>
+              <td className="px-6 py-4">
+                <span className={`px-3 py-1 rounded-full text-xs font-bold ${priorityColors[issue.priority] || priorityColors.normal}`}>
+                  {issue.priority}
+                </span>
+              </td>
+              <td className="px-6 py-4 text-slate-300">{issue.category}</td>
+              <td className="px-6 py-4 text-slate-300 max-w-xs truncate">{issue.location}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+)}
+
+
 
         {/* Issues Table */}
         <div className="relative overflow-hidden rounded-3xl bg-slate-800/50 backdrop-blur-xl border border-slate-700/50 shadow-2xl">
@@ -359,4 +395,4 @@ const StaffDashboard = () => {
   );
 };
 
-export default StaffDashboard;
+export default StaffHomeStat;
