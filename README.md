@@ -1,4 +1,3 @@
-## Admin Credentials:: **Email: sajid@gmail.com  **Password: $#@Jid4807
 # 🏗️ Public Infrastructure Issue Report System
 
 ## 📖 Project Overview
@@ -7,12 +6,12 @@ Public Infrastructure Issue Report System is a role-based web application where 
 ---
 
 ## 🌐 Live Demo
-🔗 https://YOUR-LIVE-LINK.web.app
+🔗 https://public-infrastructure-e83dc.web.app
 
 ---
 
 ## 🖼️ Screenshot
-<img src="https://i.ibb.co/YOUR-SCREENSHOT.png" alt="Public Infrastructure Issue Report System Screenshot" />
+<img src="https://i.ibb.co/jkz4RtSh/public1.png" alt="Public Infrastructure Issue Report System Screenshot" />
 
 ---
 
