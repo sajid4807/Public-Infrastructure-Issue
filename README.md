@@ -73,4 +73,4 @@ Public Infrastructure Issue Report System is a role-based web application where 
 
 ### 1️⃣ Clone the repository
 ```bash
-git clone https://github.com/YOUR_USERNAME/public-infrastructure-issue-client.git
+git clone https://github.com/sajid4807/public-infrastructure-issue-client.git
