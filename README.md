@@ -11,7 +11,7 @@ Public Infrastructure Issue Report System is a role-based web application where 
 ---
 
 ## 🖼️ Screenshot
-<img src="https://i.ibb.co/jkz4RtSh/public1.png" alt="Public Infrastructure Issue Report System Screenshot" />
+<img src="https://i.ibb.co.com/jkz4RtSh/public1.png" alt="Public Infrastructure Issue Report System Screenshot" />
 
 ---
 
