@@ -2,8 +2,8 @@ import logo from "../../assets/logo.png";
 
 const LogoDash = () => {
     return (
-            <div className="">
-                  <img src={logo} className="w-10 h-10" alt="" />
+            <div className="w-14 flex items-center justify-center h-10">
+                  <img src={logo} className="" alt="" />
                 </div>
     );
 };

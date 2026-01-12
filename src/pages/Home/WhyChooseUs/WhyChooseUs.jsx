@@ -42,15 +42,11 @@ const reasons = [
 
 const WhyChooseUs = () => {
   return (
-    <section className="relative overflow-hidden py-20 md:py-20">
-      {/* Background Decorative Elements */}
-      <div className="absolute left-0 top-0 h-64 w-64 -translate-x-32 -translate-y-32 rounded-full bg-indigo-200 opacity-20 blur-3xl"></div>
-      <div className="absolute bottom-0 right-0 h-64 w-64 translate-x-32 translate-y-32 rounded-full bg-purple-200 opacity-20 blur-3xl"></div>
-
-      <div className="relative mx-auto max-w-7xl px-4">
+    <section className="relative overflow-hidden py-4 md:py-16">
+      <div className="relative mx-auto max-w-7xl ">
         {/* Header */}
-        <div className="mb-16 text-center">
-          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 shadow-lg shadow-indigo-500/30">
+        <div className=" md:mb-16 text-center">
+          <div className="mx-auto md:mb-4 flex h-12 md:h-16 w-12 md:w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 shadow-lg shadow-indigo-500/30">
             <svg
               className="h-8 w-8 text-white"
               fill="none"
@@ -66,16 +62,16 @@ const WhyChooseUs = () => {
             </svg>
           </div>
           
-          <h2 className="mb-4 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-4xl font-black text-transparent md:text-5xl">
+          <h2 className="md:mb-4 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-2xl font-black text-transparent md:text-5xl">
             Why Choose Our Platform
           </h2>
           
-          <p className="mx-auto mt-4 max-w-2xl text-lg text-slate-600">
+          <p className="mx-auto md:mt-4 max-w-2xl text-lg text-slate-600">
             We provide a transparent, secure, and efficient solution to manage
             public infrastructure issues.
           </p>
           
-          <div className="mx-auto mt-6 h-1 w-32 rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"></div>
+          <div className="mx-auto my-4 md:mt-6 h-1 w-32 rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"></div>
         </div>
 
         {/* Cards Grid */}
@@ -83,7 +79,7 @@ const WhyChooseUs = () => {
           {reasons.map((item, index) => (
             <div
               key={index}
-              className="group relative overflow-hidden rounded-3xl bg-white p-8 shadow-xl transition-all duration-500 hover:-translate-y-3 hover:shadow-2xl"
+              className="group relative overflow-hidden rounded-lg bg-white p-3 md:p-8 shadow-sm transition-all duration-500 hover:-translate-y-3 hover:shadow-xl"
               style={{
                 animation: `fadeInUp 0.6s ease-out ${index * 0.15}s both`,
               }}
@@ -92,18 +88,18 @@ const WhyChooseUs = () => {
               <div className={`absolute -right-10 -top-10 h-32 w-32 rounded-full bg-gradient-to-br ${item.bgGradient} opacity-50 blur-2xl transition-all duration-500 group-hover:scale-150`}></div>
 
               {/* Icon Container */}
-              <div className="relative mb-6 flex justify-center">
+              <div className="relative md:mb-6 flex justify-center">
                 <div className="relative">
-                  <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${item.gradient} opacity-20 blur-xl transition-all duration-500 group-hover:opacity-40 group-hover:blur-2xl`}></div>
-                  <div className={`relative flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br ${item.gradient} shadow-lg transition-all duration-500 group-hover:rotate-12 group-hover:scale-110`}>
-                    <div className="text-4xl text-white">{item.icon}</div>
+                  <div className={`absolute inset-0 rounded-xl bg-gradient-to-br ${item.gradient} opacity-20 blur-xl transition-all duration-500 group-hover:opacity-40 group-hover:blur-2xl`}></div>
+                  <div className={`relative flex h-10 md:h-20 w-10 md:w-20 items-center justify-center rounded-lg bg-gradient-to-br ${item.gradient} shadow-lg transition-all duration-500 group-hover:rotate-12 group-hover:scale-110`}>
+                    <div className="text-xl md:text-4xl text-white">{item.icon}</div>
                   </div>
                 </div>
               </div>
 
               {/* Content */}
               <div className="relative text-center">
-                <h3 className="mb-3 text-xl font-black text-slate-800 transition-colors duration-300 group-hover:text-indigo-600">
+                <h3 className="md:mb-3 text-xl font-bold md:font-black text-slate-800 transition-colors duration-300 group-hover:text-indigo-600">
                   {item.title}
                 </h3>
                 
@@ -131,8 +127,8 @@ const WhyChooseUs = () => {
         </div>
 
         {/* Bottom CTA or Additional Info */}
-        <div className="mt-16 text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border-2 border-indigo-200 bg-white px-6 py-3 shadow-lg">
+        <div className="mt-6 md:mt-16 text-center">
+          <div className="inline-flex items-center gap-2 rounded-xl border-2 border-indigo-200 bg-white px-2 md:px-6 py-3 shadow-lg">
             <div className="h-2 w-2 animate-pulse rounded-full bg-indigo-500"></div>
             <p className="text-sm font-bold text-slate-700">
               Trusted by thousands of citizens & authorities

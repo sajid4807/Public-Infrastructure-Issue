@@ -20,10 +20,10 @@ const LatestIssue = () => {
   }
 
   return (
-    <section className="mt-10 md:mt-20 space-y-8">
+    <section className="mt-10 md:mt-20 space-y-4 md:space-y-8">
       {/* Header */}
       <div className="text-center">
-        <h2 className="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-xl font-black text-transparent md:text-4xl">
+        <h2 className="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-2xl font-black text-transparent md:text-5xl">
           Latest Resolved Issues
         </h2>
         <p className="mt-2 text-sm text-slate-600">
@@ -33,17 +33,17 @@ const LatestIssue = () => {
       </div>
 
       {/* Grid */}
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-2 md:gap-6 md:grid-cols-2 lg:grid-cols-3">
         {issues.map((issue, index) => (
           <div
             key={issue._id}
-            className="group overflow-hidden rounded-3xl bg-white shadow-xl transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl"
+            className="group overflow-hidden rounded-lg bg-white shadow-lg transition-all duration-500 hover:-translate-y-2 hover:shadow-xl"
             style={{
               animation: `fadeInUp 0.6s ease-out ${index * 0.1}s both`,
             }}
           >
             {/* Image Container */}
-            <div className="relative h-48 overflow-hidden">
+            <div className="relative h-36 md:h-48 overflow-hidden">
               <img
                 src={issue.imageURL}
                 alt={issue.title}
@@ -69,9 +69,9 @@ const LatestIssue = () => {
             </div>
 
             {/* Content */}
-            <div className="space-y-4 p-6">
+            <div className="space-y-2 md:space-y-4 p-3 md:p-6">
               {/* Title */}
-              <h3 className="line-clamp-1 text-xl font-bold capitalize text-slate-900 transition-colors duration-300 group-hover:text-emerald-600">
+              <h3 className="line-clamp-1 text-xl font-medium md:font-bold capitalize text-slate-900 transition-colors duration-300 group-hover:text-emerald-600">
                 {issue.title}
               </h3>
 
@@ -103,7 +103,7 @@ const LatestIssue = () => {
               {/* View Details Button */}
               <Link
                 to={`/view-details/${issue._id}`}
-                className="flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-600 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-emerald-500/30 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-emerald-500/40"
+                className="flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 px-6 py-2 md:py-3 text-sm font-bold text-white shadow-lg shadow-emerald-500/30 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-emerald-500/40"
               >
                 View Details
                 <FaArrowRight className="transition-transform duration-300 group-hover:translate-x-1" />

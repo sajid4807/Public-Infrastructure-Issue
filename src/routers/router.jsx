@@ -25,6 +25,13 @@ import StaffHome from "../pages/DahsBoard/StaffDashBoard/StaffHome/StaffHome";
 import StaffAssignedIssues from "../pages/DahsBoard/StaffDashBoard/StaffAssignedWork/StaffAssignedIssues";
 import StaffProfile from "../pages/DahsBoard/StaffDashBoard/StaffProfile/StaffProfile";
 import DashBoardLayout from "../layout/DashBoardLayout/DashBoardLayout";
+import PrivacyPolicy from "../components/PrivacyPolicy/PrivacyPolicy";
+import TermsAndConditions from "../components/TermsAndConditions/TermsAndConditions";
+import FAQ from "../components/FAQ/FAQ";
+import ContactUs from "../components/ContactUs/ContactUs";
+import CookiesPolicy from "../components/CookiesPolicy/CookiesPolicy";
+import HomeWrapper from "../components/HomeWrapper/HomeWrapper";
+import About from "../components/About/About";
 
 export const router = createBrowserRouter([
   {
@@ -34,7 +41,7 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Home />,
+        element: <HomeWrapper/>,
       },
       {
         path:'all-issue',
@@ -50,11 +57,35 @@ export const router = createBrowserRouter([
       },
       {
         path:'view-details/:id',
-        element:<PrivateRoute><ReportDetails></ReportDetails></PrivateRoute>
+        element:<ReportDetails></ReportDetails>
       },
       {
         path:'edit/:id',
         element:<PrivateRoute><Edit></Edit></PrivateRoute>
+      },
+      {
+        path:'privacy',
+        element:<PrivacyPolicy/>
+      },
+      {
+        path:'term',
+        element:<TermsAndConditions/>
+      },
+      {
+        path:'faq',
+        element:<FAQ/>
+      },
+      {
+        path:'contact',
+        element:<ContactUs/>
+      },
+      {
+        path:'cookies',
+        element:<CookiesPolicy/>
+      },
+      {
+        path:'about',
+        element:<About/>
       }
     ],
   },

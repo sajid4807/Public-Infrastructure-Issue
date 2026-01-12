@@ -19,6 +19,15 @@ const Navbar = () => {
       <li>
         <MyLink to="/all-issue">All Issues</MyLink>
       </li>
+      <li>
+        <MyLink to="/about">About</MyLink>
+      </li>
+      <li>
+        <MyLink to="/contact">Contact Us</MyLink>
+      </li>
+      <li>
+        <MyLink to="/term">Terms</MyLink>
+      </li>
     </>
   );
 
@@ -56,7 +65,7 @@ const Navbar = () => {
 
   return (
     <nav className="sticky top-0 z-50 border-b border-slate-200 bg-white/80 shadow-md backdrop-blur-lg">
-      <div className="mx-auto max-w-7xl px-4 md:px-10">
+      <div className="mx-auto max-w-7xl px-4 md:px-0">
         <div className="flex h-20 items-center justify-between">
           {/* Left Section - Logo & Mobile Menu */}
           <div className="flex items-center gap-4">
@@ -77,7 +86,10 @@ const Navbar = () => {
             </div>
 
             {/* Logo */}
-            <Link to="/" className="hidden transition-transform hover:scale-105 md:block">
+            <Link
+              to="/"
+              className="hidden transition-transform hover:scale-105 md:block"
+            >
               <Logo />
             </Link>
           </div>
@@ -118,7 +130,11 @@ const Navbar = () => {
                           {user.displayName}
                         </p>
                         <p className="text-xs text-slate-500">
-                          {role === "admin" ? "Administrator" : role === "staff" ? "Staff Member" : "Citizen"}
+                          {role === "admin"
+                            ? "Administrator"
+                            : role === "staff"
+                            ? "Staff Member"
+                            : "Citizen"}
                         </p>
                       </div>
                     </div>
@@ -166,13 +182,22 @@ const Navbar = () => {
                 </ul>
               </div>
             ) : (
-              <Link
-                to="/login"
-                className="group relative overflow-hidden rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 px-6 py-3 font-bold text-white shadow-lg shadow-indigo-500/50 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-indigo-500/60"
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
-                <span className="relative">Log In</span>
-              </Link>
+              <>
+                <Link
+                  to="/register"
+                  className="group relative overflow-hidden rounded-lg bg-gradient-to-l from-indigo-600 to-pink-600 px-6 py-3 font-bold text-white shadow-sm shadow-indigo-500/50 transition-all duration-300 hover:scale-105 hover:shadow-sm hover:shadow-indigo-500/60"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+                  <span className="relative">Register</span>
+                </Link>
+                <Link
+                  to="/login"
+                  className="group relative overflow-hidden rounded-lg bg-gradient-to-l from-indigo-600 to-pink-600 px-6 py-3 font-bold text-white shadow-sm shadow-indigo-500/50 transition-all duration-300 hover:scale-105 hover:shadow-sm hover:shadow-indigo-500/60"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+                  <span className="relative">Log In</span>
+                </Link>
+              </>
             )}
           </div>
         </div>

@@ -1,10 +1,10 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-    baseURL:'https://public-infrastructure-issue-server-chi.vercel.app'
-})
+  baseURL: "https://public-infrastructure-issue-server-chi.vercel.app",
+});
 const useAxios = () => {
-    return axiosInstance;
+  return axiosInstance;
 };
 
 export default useAxios;

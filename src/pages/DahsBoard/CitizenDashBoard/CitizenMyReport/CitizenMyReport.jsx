@@ -129,14 +129,14 @@ const CitizenMyReport = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 p-4 md:p-8">
-      <div className="mx-auto max-w-7xl space-y-6">
+    <div className="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 px-4 py-10 md:py-16">
+      <div className="mx-auto max-w-7xl space-y-3 md:space-y-6">
         {/* ---------------- BLOCKED WARNING ---------------- */}
         {isBlocked && (
-          <div className="animate-pulse overflow-hidden rounded-3xl border-l-8 border-red-500 bg-gradient-to-r from-red-50 to-rose-50 p-6 shadow-xl">
+          <div className="animate-pulse overflow-hidden rounded-xl border-l-8 border-red-500 bg-gradient-to-r from-red-50 to-rose-50 p-3 md:p-6 shadow-xl">
             <div className="flex items-center gap-4">
-              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-red-500 shadow-lg">
-                <FaExclamationTriangle className="text-2xl text-white" />
+              <div className="flex w-12 h-12 md:h-14 md:w-14 items-center justify-center rounded-lg bg-red-500 shadow-lg">
+                <FaExclamationTriangle className="text-xl md:text-2xl text-white" />
               </div>
               <div>
                 <p className="text-lg font-black text-red-700">Account Blocked</p>
@@ -147,15 +147,15 @@ const CitizenMyReport = () => {
         )}
 
         {/* ---------------- HEADER ---------------- */}
-        <div className="group relative overflow-hidden rounded-3xl bg-white p-6 shadow-xl transition-all duration-300 hover:shadow-2xl">
+        <div className="group relative overflow-hidden rounded-xl bg-white p-3 md:p-6 shadow-xl transition-all duration-300 hover:shadow-2xl">
           <div className="absolute right-0 top-0 h-32 w-32 rounded-full bg-gradient-to-br from-indigo-100 to-purple-100 opacity-50 blur-3xl"></div>
           <div className="relative flex items-start gap-4">
-            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 shadow-lg shadow-indigo-500/30">
-              <FaClipboardList className="text-3xl text-white" />
+            <div className="flex w-12 h-12 md:h-16 md:w-16 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 shadow-lg shadow-indigo-500/30">
+              <FaClipboardList className="text-xl md:text-3xl text-white" />
             </div>
-            <div className="flex-1">
-              <div className="flex flex-wrap items-center gap-2">
-                <h1 className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-3xl font-black text-transparent">
+            <div className="flex-1 rounded-sm">
+              <div className="flex flex-wrap items-center md:gap-2">
+                <h1 className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-xl md:text-3xl font-black text-transparent">
                   My Issues
                 </h1>
                 {isPremium && (
@@ -172,10 +172,10 @@ const CitizenMyReport = () => {
         </div>
 
         {/* ---------------- FILTERS ---------------- */}
-        <div className="overflow-hidden rounded-3xl bg-white/80 p-5 shadow-lg backdrop-blur-sm">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
+        <div className="overflow-hidden rounded-xl bg-white/80 p-3 md:p-5 shadow-lg backdrop-blur-sm">
+          <div className="flex flex-col gap-2 md:gap-4 sm:flex-row sm:items-center">
             <div className="flex items-center gap-2">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-100 to-purple-100">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-100 to-purple-100">
                 <FaFilter className="text-indigo-600" />
               </div>
               <span className="text-sm font-bold text-slate-700">Filters:</span>
@@ -183,7 +183,7 @@ const CitizenMyReport = () => {
 
             <div className="flex flex-1 flex-wrap gap-3">
               <select
-                className="min-h-[44px] flex-1 rounded-2xl border-2 border-slate-200 bg-white px-4 py-2.5 text-sm font-medium transition-all focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 sm:min-w-[180px]"
+                className="min-h-[44px] flex-1 rounded-lg border-2 border-slate-200 bg-white px-4 py-2.5 text-sm font-medium transition-all focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 sm:min-w-[180px]"
                 value={filters.status}
                 onChange={(e) => setFilters({ ...filters, status: e.target.value })}
               >
@@ -194,7 +194,7 @@ const CitizenMyReport = () => {
               </select>
 
               <select
-                className="min-h-[44px] flex-1 rounded-2xl border-2 border-slate-200 bg-white px-4 py-2.5 text-sm font-medium transition-all focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 sm:min-w-[180px]"
+                className="min-h-[44px] flex-1 rounded-lg border-2 border-slate-200 bg-white px-4 py-2.5 text-sm font-medium transition-all focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 sm:min-w-[180px]"
                 value={filters.category}
                 onChange={(e) => setFilters({ ...filters, category: e.target.value })}
               >
@@ -314,9 +314,9 @@ const CitizenMyReport = () => {
         {/* ---------------- MOBILE CARD VIEW ---------------- */}
         <div className="grid gap-4 lg:hidden">
           {issues.length === 0 ? (
-            <div className="rounded-3xl bg-white p-12 text-center shadow-xl">
-              <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-slate-100 to-slate-200">
-                <FaClipboardList className="text-4xl text-slate-400" />
+            <div className="rounded-xl bg-white p-4 md:p-12 text-center shadow-xl">
+              <div className="mx-auto mb-2 md:mb-4 flex h-14 w-14 md:h-20 md:w-20 items-center justify-center rounded-xl bg-gradient-to-br from-slate-100 to-slate-200">
+                <FaClipboardList className="text-2xl md:text-4xl text-slate-400" />
               </div>
               <p className="font-bold text-slate-600">No issues found</p>
               <p className="mt-1 text-sm text-slate-400">Your reported issues will appear here</p>
@@ -325,12 +325,12 @@ const CitizenMyReport = () => {
             issues.map((issue, index) => (
               <div
                 key={issue._id}
-                className="overflow-hidden rounded-3xl bg-white shadow-xl transition-all duration-300 hover:shadow-2xl"
+                className="overflow-hidden rounded-xl bg-white shadow-lg transition-all duration-300 hover:shadow-xl"
               >
-                <div className="bg-gradient-to-r from-indigo-500 to-purple-600 p-5">
+                <div className="bg-gradient-to-r from-indigo-500 to-purple-600 p-3 md:p-5">
                   <div className="flex items-center justify-between gap-3">
                     <div className="flex items-center gap-3">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/20 backdrop-blur-sm font-black text-white">
+                      <div className="flex h-8 w-8 md:h-12 md:w-12 items-center justify-center rounded-lg bg-white/20 backdrop-blur-sm font-black text-white">
                         {index + 1}
                       </div>
                       <div className="min-w-0">
@@ -344,8 +344,8 @@ const CitizenMyReport = () => {
                   </div>
                 </div>
 
-                <div className="space-y-4 p-5">
-                  <div className="rounded-2xl bg-gradient-to-r from-slate-50 to-slate-100 p-3">
+                <div className="space-y-2 md:space-y-4 p-3 md:p-5">
+                  <div className="rounded-xl bg-gradient-to-r from-slate-50 to-slate-100 p-3">
                     <p className="text-xs font-bold text-slate-500">Reported Date</p>
                     <p className="font-bold text-slate-700">
                       {new Date(issue.createdAt).toLocaleDateString()}
@@ -355,21 +355,21 @@ const CitizenMyReport = () => {
                   <div className="flex gap-2">
                     <Link
                       to={`/view-details/${issue._id}`}
-                      className="flex flex-1 items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-indigo-500 to-purple-600 px-4 py-3 text-sm font-bold text-white shadow-lg shadow-indigo-500/30 transition-all hover:scale-105"
+                      className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-indigo-500 to-purple-600 px-4 py-2 md:py-3 text-sm font-bold text-white shadow-lg shadow-indigo-500/30 transition-all hover:scale-105"
                     >
                       <FiEye /> View
                     </Link>
                     <button
                       disabled={isBlocked || issue.status !== "pending"}
                       onClick={() => handleEditModalOpen(issue)}
-                      className="flex flex-1 items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-600 px-4 py-3 text-sm font-bold text-white shadow-lg shadow-blue-500/30 transition-all hover:scale-105 disabled:cursor-not-allowed disabled:opacity-30"
+                      className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-blue-500 to-cyan-600 px-4 py-2 md:py-3 text-sm font-bold text-white shadow-lg shadow-blue-500/30 transition-all hover:scale-105 disabled:cursor-not-allowed disabled:opacity-30"
                     >
                       <FiEdit /> Edit
                     </button>
                     <button
                       disabled={isBlocked || issue.status !== "pending"}
                       onClick={() => handleIssueDelete(issue._id)}
-                      className="flex flex-1 items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-red-500 to-rose-600 px-4 py-3 text-sm font-bold text-white shadow-lg shadow-red-500/30 transition-all hover:scale-105 disabled:cursor-not-allowed disabled:opacity-30"
+                      className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-red-500 to-rose-600 px-4 py-2 md:py-3 text-sm font-bold text-white shadow-lg shadow-red-500/30 transition-all hover:scale-105 disabled:cursor-not-allowed disabled:opacity-30"
                     >
                       <FiTrash2 /> Delete
                     </button>

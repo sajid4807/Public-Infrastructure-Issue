@@ -28,7 +28,7 @@ const Footer = () => {
         }}></div>
       </div>
 
-      <div className="relative mx-auto max-w-7xl px-4 py-16">
+      <div className="relative mx-auto max-w-7xl px-4 py-8 md:py-16">
         {/* Top Wave Decoration */}
         <div className="absolute left-0 right-0 top-0">
           <svg className="w-full" viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -36,11 +36,11 @@ const Footer = () => {
           </svg>
         </div>
 
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-4 md:gap-10 md:grid-cols-2 lg:grid-cols-5">
           {/* Brand */}
-          <div className="space-y-4">
+          <div className="space-y-2 md:space-y-4">
             <div className="flex items-center gap-3">
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white">
                 {/* <FaMapMarkerAlt className="text-xl text-white" /> */}
                 <LogoDash/>
               </div>
@@ -59,7 +59,7 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h3 className="mb-6 flex items-center gap-2 text-lg font-black text-white">
+            <h3 className="mb-2 md:mb-6 flex items-center gap-2 text-lg font-black text-white">
               <div className="h-2 w-2 rounded-full bg-indigo-500"></div>
               Quick Links
             </h3>
@@ -71,7 +71,7 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to={role === 'citizen' && '/dashboard/citizen-report'} className="group flex items-center gap-2 text-slate-400 transition-all hover:translate-x-2 hover:text-indigo-400">
+                <Link to={role === 'citizen' && '/dashboard/citizen-report-issue'} className="group flex items-center gap-2 text-slate-400 transition-all hover:translate-x-2 hover:text-indigo-400">
                   <span className="h-1 w-1 rounded-full bg-slate-600 transition-all group-hover:w-3 group-hover:bg-indigo-500"></span>
                   Report Issue
                 </Link>
@@ -93,7 +93,7 @@ const Footer = () => {
 
           {/* Support */}
           <div>
-            <h3 className="mb-6 flex items-center gap-2 text-lg font-black text-white">
+            <h3 className="mb-2 md:mb-6 flex items-center gap-2 text-lg font-black text-white">
               <div className="h-2 w-2 rounded-full bg-purple-500"></div>
               Support
             </h3>
@@ -117,7 +117,7 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/terms" className="group flex items-center gap-2 text-slate-400 transition-all hover:translate-x-2 hover:text-purple-400">
+                <Link to="/term" className="group flex items-center gap-2 text-slate-400 transition-all hover:translate-x-2 hover:text-purple-400">
                   <span className="h-1 w-1 rounded-full bg-slate-600 transition-all group-hover:w-3 group-hover:bg-purple-500"></span>
                   Terms & Conditions
                 </Link>
@@ -125,37 +125,39 @@ const Footer = () => {
             </ul>
           </div>
 
+          
+
           {/* Social & Contact */}
           <div className="space-y-6">
             <div>
-              <h3 className="mb-6 flex items-center gap-2 text-lg font-black text-white">
+              <h3 className="mb-2 md:mb-6 flex items-center gap-2 text-lg font-black text-white">
                 <div className="h-2 w-2 rounded-full bg-pink-500"></div>
                 Follow Us
               </h3>
               <div className="flex flex-wrap gap-3">
                 <a
-                  href="#"
+                  href="https://www.facebook.com/md.sajid.516286#" target="_blank"
                   className="group relative overflow-hidden rounded-2xl bg-slate-800/50 p-3 backdrop-blur-sm transition-all hover:scale-110 hover:bg-blue-600"
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-blue-600 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
                   <FaFacebookF className="relative text-lg text-slate-400 transition-colors group-hover:text-white" />
                 </a>
                 <a
-                  href="#"
+                  href="https://twitter.com/" target="_blank"
                   className="group relative overflow-hidden rounded-2xl bg-slate-800/50 p-3 backdrop-blur-sm transition-all hover:scale-110 hover:bg-sky-500"
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-sky-400 to-sky-600 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
                   <FaTwitter className="relative text-lg text-slate-400 transition-colors group-hover:text-white" />
                 </a>
                 <a
-                  href="#"
+                  href="https://www.linkedin.com/in/sajid-hossen/" target="_blank"
                   className="group relative overflow-hidden rounded-2xl bg-slate-800/50 p-3 backdrop-blur-sm transition-all hover:scale-110 hover:bg-blue-700"
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-blue-800 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
                   <FaLinkedinIn className="relative text-lg text-slate-400 transition-colors group-hover:text-white" />
                 </a>
                 <a
-                  href="#"
+                  href="https://github.com/sajid4807" target="_blank"
                   className="group relative overflow-hidden rounded-2xl bg-slate-800/50 p-3 backdrop-blur-sm transition-all hover:scale-110 hover:bg-slate-700"
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-slate-600 to-slate-800 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
@@ -165,15 +167,46 @@ const Footer = () => {
             </div>
 
             {/* Newsletter */}
-            <div className="rounded-2xl border border-slate-700/50 bg-slate-800/30 p-4 backdrop-blur-sm">
+            <div className="rounded-xl border border-slate-700/50 bg-slate-800/30 p-4 backdrop-blur-sm">
               <p className="mb-2 text-sm font-bold text-white">Stay Updated</p>
               <p className="text-xs text-slate-400">Get the latest updates on infrastructure improvements</p>
             </div>
           </div>
+
+<div className="space-y-2 text-sm text-slate-400">
+  <h3 className="mb-2 md:mb-6 flex items-center gap-2 text-lg font-black text-white">
+                <div className="h-2 w-2 rounded-full bg-pink-500"></div>
+               Contact Us
+              </h3>
+  <p className="flex items-center gap-2">
+    <FaMapMarkerAlt className="text-indigo-400" />
+    Chittagong, Bangladesh
+  </p>
+  <p>
+     <a
+      href="mailto:mdsajidhossen4807@gmail.com"
+      className="hover:text-indigo-400 text-xs"
+    >
+    📧 mdsajidhossen4807@gmail.com
+    </a>
+  </p>
+  <p>
+     <a
+      href="tel:+8801610230949"
+      className="hover:text-indigo-400"
+    >
+     📞 +880 1610230949
+    </a>
+  </p>
+</div>
+
         </div>
 
+        
+
+
         {/* Divider */}
-        <div className="my-10 h-px w-full bg-gradient-to-r from-transparent via-slate-700 to-transparent"></div>
+        <div className="my-3 md:my-10 h-px w-full bg-gradient-to-r from-transparent via-slate-700 to-transparent"></div>
 
         {/* Bottom Bar */}
         <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
@@ -190,7 +223,7 @@ const Footer = () => {
               Privacy
             </Link>
             <span className="h-3 w-px bg-slate-700"></span>
-            <Link to="/terms" className="text-slate-400 transition-colors hover:text-indigo-400">
+            <Link to="/term" className="text-slate-400 transition-colors hover:text-indigo-400">
               Terms
             </Link>
             <span className="h-3 w-px bg-slate-700"></span>

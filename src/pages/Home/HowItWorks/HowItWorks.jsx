@@ -4,6 +4,8 @@ import {
   FaTools,
   FaCheckCircle,
 } from "react-icons/fa";
+import { Link } from "react-router";
+import useRole from "../../../hooks/useRole";
 
 const steps = [
   {
@@ -41,29 +43,29 @@ const steps = [
 ];
 
 const HowItWorks = () => {
+  const{role}=useRole()
   return (
     <section className=" relative overflow-hidden">
       {/* Background decorations */}
-      <div className="absolute top-0 left-0 w-96 h-96 bg-indigo-200/30 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-purple-200/30 rounded-full blur-3xl"></div>
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      
+      <div className="max-w-7xl mx-auto py-8 md:py-16 relative z-10">
         {/* Header */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 bg-indigo-100 px-4 py-2 rounded-full mb-4">
+        <div className="text-center mb-8 md:mb-16">
+          <div className="inline-flex items-center gap-2 bg-indigo-100 px-4 py-2 rounded-full md:mb-4">
             <svg className="w-4 h-4 text-indigo-600" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd" />
             </svg>
             <span className="text-indigo-700 font-semibold text-sm uppercase tracking-wide">Process</span>
           </div>
-          <h2 className="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 mb-4">
+          <h2 className="text-2xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 md:mb-4">
             How It Works
           </h2>
           <p className="text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
             Follow these simple steps to report and resolve public
             infrastructure issues efficiently.
           </p>
-          <div className="h-1.5 w-24 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 rounded-full mx-auto mt-6"></div>
+          <div className="h-1.5 w-24 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 rounded-full mx-auto mt-3 md:mt-6"></div>
         </div>
 
         {/* Steps - Desktop: Horizontal with Connectors */}
@@ -71,7 +73,7 @@ const HowItWorks = () => {
           {/* Connection Line */}
           <div className="absolute top-20 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-green-500 rounded-full" style={{ width: '85%', left: '7.5%' }}></div>
           
-          <div className="grid grid-cols-4 gap-6">
+          <div className="grid grid-cols-4 gap-3 md:gap-6">
             {steps.map((step, index) => (
               <div
                 key={index}
@@ -79,23 +81,23 @@ const HowItWorks = () => {
                 style={{ animation: `fadeInUp 0.6s ease-out ${index * 0.15}s both` }}
               >
                 {/* Step Card */}
-                <div className="group relative bg-white rounded-2xl p-8 text-center shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-white">
+                <div className="group relative bg-white rounded-lg p-8 text-center shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-white">
                   {/* Step Number Badge */}
                   <div className={`absolute -top-6 left-1/2 -translate-x-1/2 w-12 h-12 bg-gradient-to-br ${step.gradient} rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300 ring-4 ring-white`}>
                     <span className="text-white font-black text-xl">{step.number}</span>
                   </div>
 
                   {/* Icon */}
-                  <div className="mt-8 mb-6">
-                    <div className={`inline-flex p-5 bg-gradient-to-br ${step.gradient} rounded-2xl text-white shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-300`}>
-                      <div className="text-4xl">
+                  <div className="mt-4 md:mt-8 mb-3 md:mb-6">
+                    <div className={`inline-flex p-3 md:p-5 bg-gradient-to-br ${step.gradient} rounded-xl text-white shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-300`}>
+                      <div className="text-2xl md:text-4xl">
                         {step.icon}
                       </div>
                     </div>
                   </div>
 
                   {/* Content */}
-                  <h3 className="text-xl font-bold text-slate-800 mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-indigo-600 group-hover:to-purple-600 transition-all">
+                  <h3 className="text-xl font-bold text-slate-800 md:mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-indigo-600 group-hover:to-purple-600 transition-all">
                     {step.title}
                   </h3>
                   <p className="text-slate-600 text-sm leading-relaxed">
@@ -103,7 +105,7 @@ const HowItWorks = () => {
                   </p>
 
                   {/* Bottom accent */}
-                  <div className={`absolute bottom-0 left-0 right-0 h-1.5 bg-gradient-to-r ${step.gradient} rounded-b-3xl transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300`}></div>
+                  <div className={`absolute bottom-0 left-0 right-0 h-1.5 bg-gradient-to-r ${step.gradient} rounded-b-xl transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300`}></div>
                 </div>
               </div>
             ))}
@@ -115,7 +117,7 @@ const HowItWorks = () => {
           {steps.map((step, index) => (
             <div
               key={index}
-              className="relative flex gap-6"
+              className="relative flex gap-3 md:gap-6"
               style={{ animation: `fadeInUp 0.5s ease-out ${index * 0.1}s both` }}
             >
               {/* Timeline */}
@@ -131,18 +133,18 @@ const HowItWorks = () => {
               </div>
 
               {/* Card */}
-              <div className="flex-1 bg-white rounded-3xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-x-2 border border-white">
+              <div className="flex-1 bg-white rounded-lg p-3 md:p-6 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-x-2 border border-white">
                 {/* Icon */}
-                <div className="mb-4">
-                  <div className={`inline-flex p-4 bg-gradient-to-br ${step.gradient} rounded-2xl text-white shadow-lg`}>
-                    <div className="text-3xl">
+                <div className="mb-2 md:mb-4">
+                  <div className={`inline-flex p-2 md:p-4 bg-gradient-to-br ${step.gradient} rounded-lg text-white shadow-lg`}>
+                    <div className="text-xl md:text-3xl">
                       {step.icon}
                     </div>
                   </div>
                 </div>
 
                 {/* Content */}
-                <h3 className="text-lg font-bold text-slate-800 mb-2">
+                <h3 className="text-lg font-bold text-slate-800 md:mb-2">
                   {step.title}
                 </h3>
                 <p className="text-slate-600 text-sm leading-relaxed">
@@ -150,19 +152,19 @@ const HowItWorks = () => {
                 </p>
 
                 {/* Bottom accent */}
-                <div className={`h-1 bg-gradient-to-r ${step.gradient} rounded-full mt-4`}></div>
+                <div className={`h-1 bg-gradient-to-r ${step.gradient} rounded-full mt-2 md:mt-4`}></div>
               </div>
             </div>
           ))}
         </div>
 
         {/* Bottom CTA Section */}
-        <div className="mt-16 text-center">
-          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 px-6 py-3 rounded-full text-white font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+        <div className="mt-4 md:mt-16 text-center">
+          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 px-6 py-2 md:py-3 rounded-xl text-white font-semibold shadow-lg hover:shadow-lg transform hover:scale-105 transition-all duration-300">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
             </svg>
-            <span>Start Reporting Issues Today</span>
+            <Link to={role === 'citizen' && '/dashboard/citizen-report-issue'}>Start Reporting Issues Today</Link>
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 const Loading = () => {
   return (
-    <div className="flex h-screen flex-col items-center justify-center space-y-8 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+    <div className="flex h-screen flex-col items-center justify-center space-y-8">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -left-20 top-1/4 h-64 w-64 animate-pulse rounded-full bg-indigo-200 opacity-30 blur-3xl"></div>

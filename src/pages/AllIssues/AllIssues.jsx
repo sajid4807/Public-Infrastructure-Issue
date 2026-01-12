@@ -19,7 +19,7 @@ const AllIssues = () => {
   });
   const [inputValue, setInputValue] = useState("");
   const [page, setPage] = useState(1);
-  const limit = 9;
+  const limit = 8;
 
   const navigate = useNavigate();
   const { data, isLoading, refetch } = useQuery({
@@ -89,34 +89,34 @@ const AllIssues = () => {
   };
 
   return (
-    <div className="min-h-screen px-4 sm:px-6 lg:px-8 py-10">
+    <div className="py-5 md:py-14">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-5xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 mb-4">
+        <div className="text-center md:mb-8">
+          <h2 className="text-2xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 md:mb-4">
             All Issues
           </h2>
-          <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+          <p className="text-sm md:text-lg text-slate-600 max-w-2xl mx-auto">
             Browse and track public infrastructure issues reported by citizens
           </p>
-          <div className="h-1.5 w-32 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 rounded-full mx-auto mt-4"></div>
+          <div className="h-1.5 w-32 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 rounded-full mx-auto mt-2 md:mt-4"></div>
         </div>
 
         {/* Search and Filters */}
-        <div className="bg-white/70 backdrop-blur-xl rounded-3xl shadow-xl border border-white/20 p-6 mb-8">
+        <div className="bg-white/70 backdrop-blur-xl rounded-3xl shadow-xl border border-white/20 p-3 md:p-6 mb-8">
           {/* Search Bar */}
-          <div className="flex flex-col sm:flex-row gap-3 mb-6">
+          <div className="flex flex-row gap-1 md:gap-3 mb-3 md:mb-6">
             <div className="flex-1 relative">
               <input
                 type="search"
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 placeholder="Search by title, location, or description..."
-                className="w-full px-6 py-4 bg-white border-2 border-indigo-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent placeholder-slate-400 text-slate-700 shadow-sm transition-all"
+                className="w-full px-2 md:px-6 py-2 md:py-4 bg-white border-2 border-indigo-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent placeholder-slate-400 text-slate-700 shadow-sm transition-all"
                 onKeyPress={(e) => e.key === "Enter" && handleSearch()}
               />
               <svg
-                className="absolute right-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400"
+                className="absolute hidden md:block right-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -131,7 +131,7 @@ const AllIssues = () => {
             </div>
             <button
               onClick={handleSearch}
-              className="px-8 py-4 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white font-bold rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2"
+              className="px-2 md:px-8 py-2 md:py-4 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white font-bold rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -141,7 +141,7 @@ const AllIssues = () => {
           </div>
 
           {/* Filters */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="grid grid-cols-3 gap-1 md:gap-4">
             <div className="space-y-2">
               <label className="text-sm font-semibold text-slate-700 flex items-center gap-2">
                 <svg className="w-4 h-4 text-indigo-600" fill="currentColor" viewBox="0 0 20 20">
@@ -150,7 +150,7 @@ const AllIssues = () => {
                 Status
               </label>
               <select
-                className="w-full px-4 py-3 bg-white border-2 border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-slate-700 cursor-pointer transition-all"
+                className="w-full px-2 md:px-4 py-2 md:py-3 bg-white border-2 border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-slate-700 cursor-pointer transition-all"
                 value={filters.status}
                 onChange={(e) => setFilters({ ...filters, status: e.target.value })}
               >
@@ -170,7 +170,7 @@ const AllIssues = () => {
                 Priority
               </label>
               <select
-                className="w-full px-4 py-3 bg-white border-2 border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-slate-700 cursor-pointer transition-all"
+                className="w-full px-2 md:px-4 py-2 md:py-3 bg-white border-2 border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-slate-700 cursor-pointer transition-all"
                 value={filters.priority}
                 onChange={(e) => setFilters({ ...filters, priority: e.target.value })}
               >
@@ -188,7 +188,7 @@ const AllIssues = () => {
                 Category
               </label>
               <select
-                className="w-full px-4 py-3 bg-white border-2 border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent text-slate-700 cursor-pointer transition-all"
+                className="w-full px-2 md:px-4 py-2 md:py-3 bg-white border-2 border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-slate-700 cursor-pointer transition-all"
                 value={filters.category}
                 onChange={(e) => setFilters({ ...filters, category: e.target.value })}
               >
@@ -205,15 +205,15 @@ const AllIssues = () => {
         </div>
 
         {/* Issues Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {reports.map((report, idx) => (
             <div
               key={report._id}
-              className="group relative overflow-hidden rounded-3xl bg-white/70 backdrop-blur-xl shadow-lg border border-white/20 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
+              className="group relative overflow-hidden rounded-lg bg-white/70 backdrop-blur-xl shadow-lg border border-white/20 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
               style={{ animation: `fadeInUp 0.5s ease-out ${idx * 0.05}s both` }}
             >
               {/* Image */}
-              <div className="relative overflow-hidden h-56">
+              <div className="relative overflow-hidden h-44 md:h-56">
                 <img
                   src={report.imageURL}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
@@ -224,7 +224,7 @@ const AllIssues = () => {
                 {/* Upvote Button */}
                 <button
                   onClick={() => handleUpVote(report._id)}
-                  className="absolute top-4 right-4 flex items-center gap-2 bg-white/90 backdrop-blur-sm hover:bg-white px-4 py-2 rounded-full shadow-lg transition-all duration-300 hover:scale-110 group/vote"
+                  className="absolute top-4 right-4 flex items-center gap-1 md:gap-2 bg-white/90 backdrop-blur-sm hover:bg-white px-4 py-2 rounded-full shadow-lg transition-all duration-300 hover:scale-110 group/vote"
                 >
                   <span className="text-xl group-hover/vote:scale-125 transition-transform">👍</span>
                   <span className="font-bold text-indigo-600">{report.upVotes || 0}</span>
@@ -232,25 +232,25 @@ const AllIssues = () => {
 
                 {/* Category Badge */}
                 <div className="absolute bottom-4 left-4">
-                  <span className="px-4 py-2 bg-white/90 backdrop-blur-sm rounded-full text-sm font-bold text-slate-700 shadow-lg">
+                  <span className="px-4 py-2 bg-white/90 backdrop-blur-sm rounded-lg text-sm font-bold text-slate-700 shadow-lg">
                     {report.category}
                   </span>
                 </div>
               </div>
 
               {/* Content */}
-              <div className="p-6 space-y-4">
+              <div className="p-2 md:p-6 space-y-2 md:space-y-4">
                 {/* Title and Badges */}
-                <div className="space-y-3">
+                <div className="space-y-1 md:space-y-3">
                   <h2 className="text-xl font-bold text-slate-800 line-clamp-2 group-hover:text-indigo-600 transition-colors">
                     {report.title}
                   </h2>
                   
                   <div className="flex flex-wrap gap-2">
-                    <span className={`px-3 py-1 rounded-full text-xs font-bold border ${statusColors[report.status] || statusColors.pending}`}>
+                    <span className={`px-3 py-1 capitalize rounded-lg text-xs font-bold border ${statusColors[report.status] || statusColors.pending}`}>
                       {report.status}
                     </span>
-                    <span className={`px-3 py-1 rounded-full text-xs font-bold ${
+                    <span className={`px-3 py-1 capitalize rounded-lg text-xs font-bold ${
                       report.priority === "high"
                         ? "bg-red-100 text-red-700 border border-red-300"
                         : "bg-green-100 text-green-700 border border-green-300"
@@ -261,7 +261,7 @@ const AllIssues = () => {
                 </div>
 
                 {/* Location */}
-                <div className="flex items-start gap-2 text-slate-600">
+                <div className="flex items-center gap-1 md:gap-2 text-slate-600">
                   <svg className="w-5 h-5 text-indigo-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
                   </svg>
@@ -271,7 +271,7 @@ const AllIssues = () => {
                 {/* View Details Button */}
                 <Link
                   to={`/view-details/${report._id}`}
-                  className="block w-full text-center px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+                  className="block w-full text-center py-2 md:py-3 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
                 >
                   View Details
                 </Link>
@@ -289,7 +289,7 @@ const AllIssues = () => {
             <button
               onClick={() => setPage(Math.max(1, page - 1))}
               disabled={page === 1}
-              className="px-4 py-2 rounded-xl bg-white/70 backdrop-blur-xl border border-white/20 text-slate-700 font-medium hover:bg-white disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+              className="px-4 py-2 cursor-pointer rounded-xl bg-white/70 backdrop-blur-xl border border-white/20 text-slate-700 font-medium hover:bg-white disabled:opacity-50 disabled:cursor-not-allowed transition-all"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -300,7 +300,7 @@ const AllIssues = () => {
               <button
                 key={idx}
                 onClick={() => setPage(idx + 1)}
-                className={`px-4 py-2 rounded-xl font-bold transition-all ${
+                className={`px-4 py-2 cursor-pointer rounded-xl font-bold transition-all ${
                   page === idx + 1
                     ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg scale-110"
                     : "bg-white/70 backdrop-blur-xl border border-white/20 text-slate-700 hover:bg-white"
@@ -313,7 +313,7 @@ const AllIssues = () => {
             <button
               onClick={() => setPage(Math.min(totalPages, page + 1))}
               disabled={page === totalPages}
-              className="px-4 py-2 rounded-xl bg-white/70 backdrop-blur-xl border border-white/20 text-slate-700 font-medium hover:bg-white disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+              className="px-4 py-2 cursor-pointer rounded-xl bg-white/70 backdrop-blur-xl border border-white/20 text-slate-700 font-medium hover:bg-white disabled:opacity-50 disabled:cursor-not-allowed transition-all"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />

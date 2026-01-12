@@ -1,27 +1,27 @@
-import axios from 'axios';
-import { useEffect } from 'react';
-import useAuth from './useAuth';
+import axios from "axios";
+import { useEffect } from "react";
+import useAuth from "./useAuth";
 
 const axiosSecure = axios.create({
-    baseURL:'https://public-infrastructure-issue-server-chi.vercel.app'
-})
+  baseURL: "https://public-infrastructure-issue-server-chi.vercel.app",
+});
 
 const useAxiosSecure = () => {
-    const {user} =useAuth()
+  const { user } = useAuth();
 
-    useEffect(()=>{
-        const interceptor = axiosSecure.interceptors.request.use(config =>{
-            if(user?.accessToken){
-                config.headers.Authorization =`Bearer ${user?.accessToken}`
-            }
-            return config
-        })
-        return ()=>{
-            axiosSecure.interceptors.request.eject(interceptor)
-        }
-    },[user])
+  useEffect(() => {
+    const interceptor = axiosSecure.interceptors.request.use((config) => {
+      if (user?.accessToken) {
+        config.headers.Authorization = `Bearer ${user?.accessToken}`;
+      }
+      return config;
+    });
+    return () => {
+      axiosSecure.interceptors.request.eject(interceptor);
+    };
+  }, [user]);
 
-    return axiosSecure;
+  return axiosSecure;
 };
 
 export default useAxiosSecure;

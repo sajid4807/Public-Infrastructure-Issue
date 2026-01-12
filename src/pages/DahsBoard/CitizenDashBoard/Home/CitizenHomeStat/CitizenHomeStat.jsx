@@ -47,14 +47,14 @@ const StatCard = ({ title, value, icon, gradient }) => {
 
   return (
     <div
-      className={`group relative overflow-hidden rounded-3xl p-6 text-white shadow-xl transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl ${gradient}`}
+      className={`group relative overflow-hidden rounded-xl p-3 md:p-6 text-white shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-xl ${gradient}`}
     >
       {/* Animated background blob */}
-      <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-white/10 blur-2xl transition-transform duration-500 group-hover:scale-150"></div>
+      <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-white/10 blur-xl transition-transform duration-500 group-hover:scale-150"></div>
       
       <div className="relative z-10">
-        <div className="flex items-center justify-between mb-3">
-          <div className="p-3 bg-white/20 backdrop-blur-sm rounded-2xl shadow-lg">
+        <div className="flex items-center justify-between md:mb-3">
+          <div className="p-3 bg-white/20 backdrop-blur-sm rounded-lg shadow-lg">
             <div className="text-2xl">{icon}</div>
           </div>
           <div className="text-5xl opacity-20 transition-opacity duration-300 group-hover:opacity-30">
@@ -76,12 +76,12 @@ const StatCard = ({ title, value, icon, gradient }) => {
 
 /* ---------------- Chart Card ---------------- */
 const ChartCard = ({ title, children }) => (
-  <div className="group relative overflow-hidden rounded-3xl bg-white/70 backdrop-blur-xl p-8 shadow-xl border border-white/20 transition-all duration-300 hover:shadow-2xl hover:border-indigo-200">
+  <div className="group relative overflow-hidden rounded-xl bg-white/70 backdrop-blur-xl p-4 md:p-8 shadow-xl border border-white/20 transition-all duration-300 hover:shadow-2xl hover:border-indigo-200">
     {/* Gradient overlay on hover */}
     <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
     
     <div className="relative z-10">
-      <div className="mb-6 flex items-center justify-between">
+      <div className="md:mb-6 flex items-center justify-between">
         <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">
           {title}
         </h2>
@@ -178,12 +178,12 @@ const CitizenHomeStat = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 px-4 sm:px-6 lg:px-8 py-8">
-      <div className="max-w-7xl mx-auto space-y-10">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 px-4 py-10 md:py-16">
+      <div className="max-w-7xl mx-auto space-y-4 md:space-y-10">
         {/* Blocked Warning */}
         {isBlocked && (
-          <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-red-50 to-red-100 border-l-4 border-red-500 p-6 shadow-xl animate-pulse">
-            <div className="flex items-start gap-4">
+          <div className="relative overflow-hidden rounded-xl bg-gradient-to-r from-red-50 to-red-100 border-l-4 border-red-500 p-3 md:p-6 shadow-lg animate-pulse">
+            <div className="flex items-center md:items-start gap-4">
               <div className="flex-shrink-0">
                 <div className="p-2 bg-red-500 rounded-lg">
                   <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -192,7 +192,7 @@ const CitizenHomeStat = () => {
                 </div>
               </div>
               <div>
-                <h3 className="text-lg font-bold text-red-800 mb-1">Account Blocked</h3>
+                <h3 className="text-lg font-bold text-red-800 md:mb-1">Account Blocked</h3>
                 <p className="text-red-700">You are blocked by admin. Please contact authorities for assistance.</p>
               </div>
             </div>
@@ -200,9 +200,9 @@ const CitizenHomeStat = () => {
         )}
 
         {/* Header */}
-        <div className="space-y-2">
-          <div className="flex flex-wrap items-center gap-3">
-            <h1 className="text-4xl lg:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600">
+        <div className="space-y-1">
+          <div className="flex flex-wrap items-center md:gap-3">
+            <h1 className="text-2xl lg:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600">
               Dashboard
             </h1>
             {isPremium && (
@@ -212,14 +212,14 @@ const CitizenHomeStat = () => {
               </div>
             )}
           </div>
-          <p className="text-lg text-slate-600">
+          <p className="text-sm md:text-lg text-slate-600">
             Overview of your reported issues and activity
           </p>
           <div className="h-1.5 w-32 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 rounded-full"></div>
         </div>
 
         {/* Stat Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-2 md:gap-6">
           {stats.map((stat, idx) => (
             <div
               key={idx}
@@ -233,7 +233,7 @@ const CitizenHomeStat = () => {
         </div>
 
         {/* Decorative Divider */}
-        <div className="relative py-8">
+        <div className="relative py-4 md:py-8">
           <div className="absolute inset-0 flex items-center">
             <div className="w-full border-t-2 border-dashed border-indigo-200"></div>
           </div>
@@ -245,7 +245,7 @@ const CitizenHomeStat = () => {
         </div>
 
         {/* Charts */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 md:gap-8">
           {/* Status Pie Chart */}
           <div style={{ animation: 'fadeInUp 0.6s ease-out both' }}>
             <ChartCard title="Issue Status Overview">
