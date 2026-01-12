@@ -1,17 +1,76 @@
-## Website name:: Public Infrastructure Issue Tracker
-## Live site URL:: https://public-infrastructure-e83dc.web.app
-## Admin Credentials:: **Email: sajid@gmail.com  **Password: $#@Jid4807
-## Features
-# User Registration & Login:: Citizens can create accounts and log in securely.  
-# Admin Dashboard:: Admins can view all reports, manage staff, and access statistics.  
-# Staff Dashboard:: Staff members can view assigned issues and update statuses.  
-# Report Submission:: Citizens can submit infrastructure issues with details, location, and category.  
-# Issue Tracking:: Track the progress of issues from "pending" to "resolved" or "closed".  
-# UpVote System:: Citizens can upVote reported issues to highlight priority problems.  
-# Subscription System:: Premium users can submit unlimited issues.  
-# Payment Integration:: Stripe payment gateway for subscriptions and issue boosting.  
-# Boost Issues:: Citizens can pay to boost an issue to high priority for faster resolution.  
-# Blocked Users Management:: Admins can block/unblock users who violate rules.  
-# Analytics:: Monthly charts and statistics for admins and citizens.  
-# Responsive Design:: Fully responsive interface for mobile, tablet, and desktop.  
-# Search & Filter:: Search issues by title, category, location, or status. 
+# 🏗️ Public Infrastructure Issue Report System
+
+## 📖 Project Overview
+Public Infrastructure Issue Report System is a role-based web application where citizens can report public infrastructure issues. Admins have full control over the system, assign issues to staff members, and monitor progress, while citizens can track assigned staff and issue status in real time.
+
+---
+
+## 🌐 Live Demo
+🔗 https://public-infrastructure-e83dc.web.app
+
+---
+
+## 🖼️ Screenshot
+<img src="https://i.ibb.co.com/jkz4RtSh/public1.png" alt="Public Infrastructure Issue Report System Screenshot" />
+
+---
+
+## ✨ Core Features
+
+### 👤 Citizen Dashboard
+- Report public infrastructure issues with images and descriptions  
+- View reported issues and current status  
+- See **which staff member is assigned** to each issue  
+- Track progress updates in real time  
+
+### 🧑‍🔧 Staff Dashboard
+- View issues assigned by admin  
+- Update issue progress and status (in progress / resolved)  
+- Manage assigned tasks efficiently  
+
+### 🛡️ Admin Dashboard (Full Access)
+- Full control over the entire system  
+- View all reported issues  
+- Assign issues to staff members  
+- Change issue status and monitor progress  
+- Manage users (citizen & staff roles)  
+
+---
+
+## 🧰 Technologies Used
+
+### Frontend
+- React.js  
+- Tailwind CSS  
+- DaisyUI  
+- JavaScript  
+
+### Backend
+- Node.js  
+- Express.js  
+- MongoDB  
+
+### Authentication & Tools
+- Firebase Authentication  
+- Git & GitHub  
+- Firebase Hosting / Vercel  
+
+---
+
+## 📦 Dependencies
+- react  
+- react-router-dom  
+- firebase  
+- axios  
+- express  
+- mongodb  
+- cors  
+- dotenv  
+
+---
+
+## 🚀 Run Locally
+
+### 1️⃣ Clone the repository
+```bash
+git clone https://github.com/sajid4807/public-infrastructure-issue-client.git
