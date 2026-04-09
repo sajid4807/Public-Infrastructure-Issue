@@ -165,11 +165,11 @@ const TermsAndConditions = () => {
             By continuing to use our platform, you accept these Terms and Conditions. For any questions or concerns, please don't hesitate to contact our support team.
           </p>
           <a
-            href="mailto:support@example.com"
+            href="mailto:mdsajidhossen4807@gmail.com"
             className="inline-flex items-center gap-2 bg-white text-indigo-600 font-bold px-8 py-4 rounded-2xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
           >
             <FaEnvelope />
-            support@example.com
+            mdsajidhossen4807@gmail.com
           </a>
 
           {/* Decorative bottom line */}

@@ -211,7 +211,7 @@ const Register = () => {
                       type="text"
                       {...register("name", { required: true })}
                       className="w-full px-3 md:px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 transition-all duration-300 outline-none bg-white/50 group-hover:bg-white"
-                      placeholder="John Doe"
+                      placeholder="Enter Your Name"
                     />
                     {errors.name?.type === "required" && (
                       <p className="text-red-500 text-xs mt-1 flex items-center gap-1 animate-shake">
@@ -258,7 +258,7 @@ const Register = () => {
                       type="email"
                       {...register("email", { required: true })}
                       className="w-full px-3 md:px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all duration-300 outline-none bg-white/50 group-hover:bg-white"
-                      placeholder="john@example.com"
+                      placeholder="Enter Your Email"
                     />
                     {errors.email?.type === "required" && (
                       <p className="text-red-500 text-xs mt-1 flex items-center gap-1 animate-shake">
@@ -282,7 +282,7 @@ const Register = () => {
                       type="number"
                       {...register("phone", { required: true })}
                       className="w-full px-3 md:px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-green-500 focus:ring-4 focus:ring-green-100 transition-all duration-300 outline-none bg-white/50 group-hover:bg-white"
-                      placeholder="+880 1XXX-XXXXXX"
+                      placeholder="Enter Your Phone Number"
                     />
                     {errors.phone?.type === "required" && (
                       <p className="text-red-500 text-xs mt-1 flex items-center gap-1 animate-shake">
@@ -310,7 +310,7 @@ const Register = () => {
                         pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/,
                       })}
                       className="w-full px-3 md:px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-pink-500 focus:ring-4 focus:ring-pink-100 transition-all duration-300 outline-none bg-white/50 group-hover:bg-white"
-                      placeholder="••••••••"
+                      placeholder="Enter Your Password"
                     />
                     {errors.password?.type === "required" && (
                       <p className="text-red-500 text-xs mt-1 flex items-center gap-1 animate-shake">
@@ -341,7 +341,7 @@ const Register = () => {
                   {/* Submit Button */}
                   <button 
                   type="submit"
-                    className="relative w-full bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white font-black py-3 md:py-4 rounded-xl shadow-xl hover:shadow-2xl transform hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 mt-1 md:mt-4 overflow-hidden group"
+                    className="relative cursor-pointer w-full bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white font-black py-3 md:py-4 rounded-xl shadow-xl hover:shadow-2xl transform hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 mt-1 md:mt-4 overflow-hidden group"
                   >
                     <span className="relative z-10 flex items-center justify-center gap-2">
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

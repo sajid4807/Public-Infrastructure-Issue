@@ -54,7 +54,7 @@ const SocialLogin = () => {
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-50 via-purple-50 to-pink-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
                 {/* Button content */}
-                <div className="relative flex items-center justify-center gap-1 md:gap-3">
+                <div className="relative cursor-pointer flex items-center justify-center gap-1 md:gap-3">
                     {/* Google Icon with hover effect */}
                     <div className="flex-shrink-0 transform group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300">
                         <svg 

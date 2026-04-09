@@ -1,13 +1,13 @@
 import { Link } from "react-router";
 import {
   FaFacebookF,
-  FaTwitter,
   FaLinkedinIn,
   FaGithub,
   FaMapMarkerAlt,
 } from "react-icons/fa";
 import useRole from "../../hooks/useRole";
 import LogoDash from "../Logo/LogoDash";
+import { RiTwitterXFill } from "react-icons/ri";
 
 const Footer = () => {
   const { role } = useRole();
@@ -147,7 +147,7 @@ const Footer = () => {
                   className="group relative overflow-hidden rounded-2xl bg-slate-800/50 p-3 backdrop-blur-sm transition-all hover:scale-110 hover:bg-sky-500"
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-sky-400 to-sky-600 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
-                  <FaTwitter className="relative text-lg text-slate-400 transition-colors group-hover:text-white" />
+                  <RiTwitterXFill className="relative text-lg text-slate-400 transition-colors group-hover:text-white" />
                 </a>
                 <a
                   href="https://www.linkedin.com/in/sajid-hossen/" target="_blank"
